@@ -1,0 +1,82 @@
+{
+    "little_bee": {
+        "id": "little_bee",
+        "skin": "skin_01",
+        "component": "FlyPig",
+        "name": "RicePorridge",
+        "description": "a handsome person.",
+        "atk_type": "normal_remote_atk",
+        "atk_direction_type": "normal",
+        "bullet_num": 1,
+        "unit_bullet_num": 1,
+        "type": [
+            "enemy",
+            "role"
+        ],
+        "dmg": {
+            "value": 80,
+            "max": 80,
+            "min": 0
+        },
+        "dfs": {
+            "value": 80,
+            "max": 80,
+            "min": 0
+        },
+        "hp": {
+            "value": 80,
+            "max": 80,
+            "min": 0
+        },
+        "mp": {
+            "value": 80,
+            "max": 80,
+            "min": 0
+        },
+        "bullet": [
+            {
+                "id": "fire_ball_bullet",
+                "value": 10000,
+                "max": 10000,
+                "mix": 0
+            }
+        ],
+        "bullet_state": [
+            {
+                "id": "normal",
+                "value": 10000,
+                "max": 10000,
+                "mix": 0
+            }
+        ],
+        "bullet_speed": {
+            "value": 1000,
+            "max": 8000,
+            "min": 0
+        },
+        "atk_speed": {
+            "value": 3,
+            "max": 100,
+            "min": 0
+        },
+        "atk_range": {
+            "value": 800,
+            "max": 1334,
+            "min": 0
+        },
+        "luck": {
+            "value": 8,
+            "max": 20,
+            "min": 0
+        },
+        "speed": {
+            "value": 8,
+            "max": 20,
+            "min": 0
+        },
+        "moveTiled": [
+            "tiled_201"
+        ],
+        "prop": {}
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "tiledEnum": {
+        "wall": "tiled_100",
+        "road": "tiled_201"
+    },
+    "tiled_100": {
+        "id": 100,
+        "moveExpend": 10000
+    },
+    "tiled_201": {
+        "id": 201,
+        "moveExpend": 10
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "atk_formula": {
+        "value": "dmg|*|dmg|/|dmg|+|dfs",
+        "key": "|"
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "__type__": "cc.Material",
+  "_name": "magnifier",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "68fd8282-fc63-4009-9b2f-488ce262810f"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true,
+        "INPUT_IS_GAMMA": false,
+        "USE_ALPHA_TEST": false
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+// Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.  
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        texture: { value: white }
+        alphaThreshold: { value: 1.0 }
+}%
+
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec3 a_position;
+  in vec4 a_color;
+  out vec4 v_color;
+  out vec4 a_pos;
+
+  #if USE_TEXTURE
+  in vec2 a_uv0;
+  out vec2 v_uv0;
+  #endif
+
+  void main () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if CC_USE_MODEL
+    pos = cc_matViewProj * cc_matWorld * pos;
+    #else
+    pos = cc_matViewProj * pos;
+    #endif
+
+    #if USE_TEXTURE
+    v_uv0 = a_uv0;
+    v_uv0.x = v_uv0.x*1.0;
+    #endif
+
+    // pos.y = pos.y * sin(cc_time.x);
+
+    v_color = a_color;
+    a_pos = pos;
+    gl_Position = pos;
+  }
+}%
+
+
+CCProgram fs %{
+  precision highp float;
+  
+  #include <cc-global>
+  #include <alpha-test>
+  #include <texture>
+
+  in vec4 v_color;
+  in vec4 a_pos;
+
+  #if USE_TEXTURE
+  in vec2 v_uv0;
+  uniform sampler2D texture;
+  #endif
+
+  const vec2 repeat = vec2(1, 1);
+  const vec2 centerPoint = vec2(0.5, 0.5);
+  const float radius = 0.01;
+  const float wh_ratio = 0.56;
+  const float blur = 0.02;
+
+  /**
+  * 获取权重
+  */
+  float getWeight(float x, float y) {
+    return (1.0 / (2.0 * pi * pow(stDev, 2.0))) * pow(1.0 / e, (pow(x, 2.0) + pow(y, 2.0)) / (2.0 * pow(stDev, 2.0)));
+  }
+  //  返回范围内的一个值
+  float Band(float v, float start, float end) {
+    float up = step(start, v);
+    float down = 1.0 - step(end, v);
+    return up * down;
+  }
+  // 矩形
+  float Rect(vec2 uv, float l, float b, float r, float t) {
+    float x = Band(uv.x, l, r);
+    float y = Band(uv.y, b, t);
+    return x * y;
+  }
+  // 波动
+  float SinFunc(vec2 uv,float time){
+    float a = 1.0 - step(0.01*sin(uv.x*20.0+time)+0.5,uv.y);
+    return a;
+  }
+
+  void main () {
+    vec4 o = vec4(1,1,1,1);
+    // vec4 color = v_color;
+    // color *= texture(texture, v_uv0);
+    vec2 t = v_uv0;
+    t.x = fract(v_uv0.x + abs(sin(cc_time.x)));
+    // t.x = fract(t.x + cc_time.x/1.0);
+    // t.y = fract(t.y + cc_time.x/10.);
+    // t.x = (v_uv0.x-0.5) * cos(cc_time.x) - (v_uv0.y-0.5)*sin(cc_time.x)+0.5;
+    // t.y = (v_uv0.x-0.5) * sin(cc_time.x) + (v_uv0.y-0.5)*cos(cc_time.x)+0.5;
+    o = texture(texture, t);
+
+    o*=v_color;
+
+    float a = 0.01*abs(sin(cc_time.x*2.))*sin(abs(cos(cc_time.x))*v_uv0.x*20.0-cc_time.x*10.0)+abs(cos(cc_time.x/5.0)); // 如果y在曲线上方a为1，如果y在曲线下方a为0
+    // if(v_uv0.y > a) {
+      float reduce = 1.0-smoothstep(0.,0.03,v_uv0.y - a);
+      reduce = max(0.6, reduce);
+      if(reduce == 0.6){
+        o.r = o.r+0.4;
+        o.b = o.b+1.0;
+        o.g = o.g+0.5;
+      }
+      o.a = reduce;
+    // }
+     ALPHA_TEST(o);
+    gl_FragColor = o;
+  }
+}%

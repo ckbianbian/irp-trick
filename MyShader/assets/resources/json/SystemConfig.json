@@ -1,0 +1,49 @@
+{
+    "version": "v0.0.1",
+    "game_name": "BombTeam",
+    "loadResArray": [
+        "json/Hero",
+        "json/Enemy",
+        "json/Skill",
+        "json/Equipment",
+        "json/Prop",
+        "json/Map",
+        "json/Formula",
+        "json/Bullet"
+    ],
+    "localStorage_template": {
+        "package": [],
+        "role": [],
+        "bean": 0,
+        "bomb_coin": 0,
+        "storages": [
+            "storage_timestamp"
+        ],
+        "storage_timestamp": {
+            "coin": 0,
+            "package": [],
+            "role": "role_one"
+        }
+    },
+    "scenes": {
+        "default": {
+            "name": "hall"
+        },
+        "scenes_01": {
+            "name": "hall",
+            "loadPrefabAssets": [
+                "prefab/role/role"
+            ]
+        },
+        "scenes_02": {
+            "name": "battle",
+            "loadPrefabAssets": [
+                "prefab/role/role",
+                "prefab/bullet/bullet"
+            ]
+        },
+        "scenes_03": {
+            "name": "load"
+        }
+    }
+}

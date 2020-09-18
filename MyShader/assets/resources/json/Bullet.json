@@ -1,0 +1,12 @@
+{
+    "fire_ball_bullet": {
+        "id": "fire_ball_bullet",
+        "skin": "",
+        "component": "FireBallBulletC",
+        "type": [
+            "node",
+            "bullet"
+        ],
+        "moveTiled": {}
+    }
+}

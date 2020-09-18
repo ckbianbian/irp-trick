@@ -1,0 +1,27 @@
+{
+  "__type__": "cc.Material",
+  "_name": "custom_material",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "ce15b4bd-41c4-4555-b78c-6f0e7f5d8789"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true,
+        "ENABLE_GAUSSIAN_BLUR": true,
+        "USE_ALPHA_TEST": true
+      },
+      "props": {
+        "textureSize": {
+          "__type__": "cc.Vec2",
+          "x": 200,
+          "y": 200
+        },
+        "alphaThreshold": 0
+      }
+    }
+  }
+}
