@@ -14,6 +14,30 @@ CCEffect %{
       properties:
         texture: { value: white }
         alphaThreshold: { value: 0.5 }
+        magnifierCenterPoint: {
+          value: [0.2, 0.2],
+          editor: {
+            tooltip: "放大镜中心点坐标" 
+          }
+        }
+        magnifierRadius: {
+          value: 0.5,
+          editor: {
+            tooltip: "放大镜半径" 
+          }
+        }
+        magnifierScale: {
+          value: 0.6,
+          editor: {
+            tooltip: "放大镜倍数" 
+          }
+        }
+        nodeTextureProportion: {
+          value: 0.56,
+          editor: {
+            tooltip: "节点宽高比比例" 
+          }
+        }
 }%
 
 
@@ -61,6 +85,17 @@ CCProgram fs %{
 
   in vec4 v_color;
 
+  uniform Magnifier {
+    // 放大镜中心点坐标
+    vec2 magnifierCenterPoint;
+    // 放大镜半径
+    float magnifierRadius;
+    // 放大镜放大倍数
+    float magnifierScale;
+    // 节点的宽高比
+    float nodeTextureProportion;
+  };
+
   #if USE_TEXTURE
   in vec2 v_uv0;
   uniform sampler2D texture;
@@ -81,8 +116,9 @@ CCProgram fs %{
     tPos.y = (uv.y - center.y) * (scale+degree*0.1) + center.y;
     return tPos;
   }
+  // 通过放大镜距离获得纹理
   vec2 getDisTextPos(vec2 uv, vec2 center, float scale, float radius){
-    float dis = pow(abs(uv.x - center.x)*abs(uv.x - center.x) + (abs(uv.y - center.y)/textureProportion)*(abs(uv.y - center.y)/textureProportion),0.5);
+    float dis = pow(abs(uv.x - center.x)*abs(uv.x - center.x) + (abs(uv.y - center.y)/nodeTextureProportion)*(abs(uv.y - center.y)/nodeTextureProportion),0.5);
     if(dis <= radius){
       float deg = smoothstep(radius - 0.03, radius, dis);
       return getTextPos(uv, center, scale, deg);
@@ -95,7 +131,7 @@ CCProgram fs %{
     vec2 tempCenter = vec2(0.5,abs(sin(cc_time.x)));
     // vec2 uv = getTextPos(v_uv0, centerPoint, scaleDegree);
     // vec2 uv = getDisTextPos(v_uv0, tempCenter, scaleDegree, toCenterDis);
-    vec2 uv = getDisTextPos(v_uv0, centerPoint, scaleDegree, toCenterDis);
+    vec2 uv = getDisTextPos(v_uv0, magnifierCenterPoint, magnifierScale, magnifierRadius);
 
     #if USE_TEXTURE
       CCTexture(texture, uv, o);
