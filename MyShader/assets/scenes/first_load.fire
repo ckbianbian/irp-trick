@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        842.6348385929309,
+        844.3747686898278,
         0,
         0,
         0,
@@ -377,7 +377,7 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "2f17182b-17bd-4dfe-ade9-2731359da698"
+        "__uuid__": "18926c18-ea23-4eaa-8d5d-485dedd3fae3"
       }
     ],
     "_srcBlendFactor": 770,
@@ -385,7 +385,7 @@
     "_spriteFrame": {
       "__uuid__": "6940387b-d3e2-4f36-8a63-10973626a362"
     },
-    "_type": 0,
+    "_type": 2,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {

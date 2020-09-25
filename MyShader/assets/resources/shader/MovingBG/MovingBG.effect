@@ -1,0 +1,86 @@
+// Copyright 2020 Cao Gaoting<caogtaa@gmail.com>
+// https://caogtaa.github.io
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
+/*
+ * Date: 2020-07-13 02:44:17
+ * LastEditors: GT<caogtaa@gmail.com>
+ * LastEditTime: 2020-07-22 14:03:10
+*/ 
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        texture: { value: white }
+}%
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec3 a_position;
+  in vec2 a_uv0;
+  in vec2 a_uv1;
+  in vec2 a_p;
+  in vec2 a_q;
+
+  out vec2 v_uv0;
+  out vec2 v_uv1;
+  out vec2 v_p;
+  out vec2 v_q;
+  
+  void main() {
+    vec4 pos = vec4(a_position, 1);
+    pos = cc_matViewProj * pos;
+    v_uv0 = a_uv0;
+    v_uv1 = a_uv1;
+    v_p = a_p;
+    v_q = a_q;
+    
+    gl_Position = pos;
+  }
+}%
+
+// by caogtaa
+CCProgram fs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec2 v_uv0;
+  in vec2 v_uv1;
+  in vec2 v_p;
+  in vec2 v_q;
+
+  uniform sampler2D texture;
+
+  void main()
+  {
+    vec2 uv = v_uv0.xy;
+
+    // remap to [0, 1]
+    uv = uv * v_p + v_q;
+
+    // move sample uv by time
+    vec2 offset = v_uv1 * cc_time.x;
+    uv = fract(uv - offset);
+
+    // reverse remap from [0, 1]
+    uv = (uv - v_q) / v_p;
+
+    vec4 col = texture(texture, uv);
+    gl_FragColor = col;
+  }
+}%

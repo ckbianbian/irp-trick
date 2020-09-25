@@ -1,4 +1,5 @@
 import CollisionController from "../controller/CollisionController";
+import StateBase from "../state/StateBase";
 
 /**
  *  @description 挂载脚本基类
@@ -13,6 +14,8 @@ export default class ObjectC extends cc.Component {
     /** ------------------------------------基础属性-------------------------------------- */
 
 
+    /** 状态 */
+    public _state: StateBase = null;
     /** 运行实例 */
     static ins = null;
     /** 触摸点数组 */
@@ -82,7 +85,7 @@ export default class ObjectC extends cc.Component {
 
 
     /** 加载时候调用方法 */
-    onLoad = () => {
+    onLoad() {
         this.initIns(); // 初始化实列
         this.initKeycodMap(); // 初始化键盘按键映射
         this._onLoad();
@@ -111,6 +114,15 @@ export default class ObjectC extends cc.Component {
         this.moveKeycodMap.set(87, this.KEY_OPERATION_ENUM.UP); // w
         this.moveKeycodMap.set(65, this.KEY_OPERATION_ENUM.LEFT); // a
         this.moveKeycodMap.set(68, this.KEY_OPERATION_ENUM.RIGHT); // d
+    }
+
+
+    /** ------------------------------------状态操作-------------------------------------- */
+
+
+    /** 设置状态 */
+    setState(state: StateBase): void {
+        this._state = state;
     }
 
 
@@ -426,7 +438,7 @@ export default class ObjectC extends cc.Component {
 
 
     /** 子类实现onload */
-    _onLoad = (): void => { };
+    _onLoad(): void { };
     /** 子类实现触摸开始回调 */
     _onTouchStartCallFunc = (event: cc.Event.EventTouch): void => { };
     /** 子类实现触摸移动回调 */

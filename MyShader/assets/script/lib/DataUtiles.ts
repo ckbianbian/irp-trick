@@ -12,7 +12,7 @@ export default class DataUtiles extends Utiles {
     /**
          *  @description 字符串加密
          */
-    private static Encrypt(str: string) {
+    public static Encrypt(str: string) {
         var c = String.fromCharCode(str.charCodeAt(0) + str.length);
         for (var i = 1; i < str.length; i++) {
             c += String.fromCharCode(str.charCodeAt(i) + str.charCodeAt(i - 1));
@@ -22,7 +22,7 @@ export default class DataUtiles extends Utiles {
     /**
      *  @description 字符串解密
      */
-    private static Decrypt(str: string) {
+    public static Decrypt(str: string) {
         str = unescape(str);
         var c = String.fromCharCode(str.charCodeAt(0) - str.length);
         for (var i = 1; i < str.length; i++) {
@@ -33,7 +33,7 @@ export default class DataUtiles extends Utiles {
     /**
      *  @description Map转对象
      */
-    private static StrMapToObj(strMap: any) {
+    public static StrMapToObj(strMap: any) {
         let obj = Object.create(null)
         for (let [k, v] of strMap) {
             obj[k] = v;
@@ -43,7 +43,7 @@ export default class DataUtiles extends Utiles {
     /**
      *  @description 对象转Map
      */
-    private static ObjToStrMap(obj: any) {
+    public static ObjToStrMap(obj: any) {
         let strMap = new Map();
         for (let k of Object.keys(obj)) {
             strMap.set(k, obj[k]);
@@ -53,13 +53,13 @@ export default class DataUtiles extends Utiles {
     /**
      *  @description Map转JSON
      */
-    private static StrMapToJson(strMap: Map<string, any>) {
+    public static StrMapToJson(strMap: Map<string, any>) {
         return JSON.stringify(this.StrMapToObj(strMap));
     }
     /**
      *  @description JSON转Map
      */
-    private static JsonToStrMap(jsonStr: any) {
+    public static JsonToStrMap(jsonStr: any) {
         return this.ObjToStrMap(JSON.parse(jsonStr));
     }
 

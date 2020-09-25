@@ -155,6 +155,41 @@ export default class ActionController extends Controller {
             params[1].opacity = 255;
         }, time, [nodeMtl, node]);
     }
+    /** 节点x旋转 */
+    public static rotationNodeByScaleX(node: cc.Node, callFunc?: Function, time: number = 0.3): cc.Tween {
+        let action = cc.tween(node).sequence(
+            cc.tween().to(time / 2, {
+                scaleX: -1
+            }),
+            cc.tween().to(
+                time / 2, {
+                scaleX: 1
+            }
+            )
+        ).call(callFunc);
+        action.start();
+        return action;
+    }
+    /** 节点原地旋转 */
+    public static rotationNodeByAngle(node: cc.Node, callFunc?: Function, time: number = 0.9): cc.Tween {
+        node.angle = 0;
+        let action = cc.tween(node).repeatForever(
+            cc.tween().sequence(
+                cc.tween().to(time / 2, {
+                    angle: 10,
+                }),
+                cc.tween().to(time / 2, {
+                    angle: -10,
+                }),
+                // cc.tween().to(time / 2, {
+                //     angle: 0
+                // }),
+                // cc.tween().delay(time),
+            )
+        );
+        action.start().call(callFunc);
+        return action;
+    }
 
 
 }
