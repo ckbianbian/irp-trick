@@ -52,7 +52,7 @@ export default class MainC extends SceneC {
     /** 辐射线数量 */
     _rayNum = 360;
     /** 辐射线半径 */
-    _rayRadiu = 400;
+    _rayRadiu = 800;
     /** 视野顶点数组 */
     _lightVertsArray = new Array();
 
@@ -76,6 +76,12 @@ export default class MainC extends SceneC {
         // p2 = this.node.convertToWorldSpaceAR(p2);
         // // this.drawRay(p1, p2);
         // cc.log(p1, p2);
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            let pos = event.getLocation();
+            this.node.convertToNodeSpaceAR(pos, pos);
+            this.player.setPosition(pos);
+            // cc.log(pos);
+        }, this);
         this.scheduleOnce(() => {
             // let physicsManager = cc.director.getPhysicsManager();
             // let result = physicsManager.rayCast(p1, p2, cc.RayCastType.Closest);
@@ -90,27 +96,6 @@ export default class MainC extends SceneC {
                 cc.moveBy(0.9, cc.v2(0, 350)),
             ));
         }, 3);
-    }
-    /** 测试射线 */
-    testRay(): void {
-        let pos = this.player.position;
-        let rd = cc.v3(0, 1, 0);
-        let ray = cc.geomUtils.Ray.create(pos, rd);
-        cc.log(ray);
-    }
-    /** 画出辐射射线 */
-    /** 画出射线 */
-    drawRay(p1, p2): void {
-        let self = this;
-        self.ctx = this.graphics.getComponent(cc.Graphics);
-        self.ctx.clear();
-        for (let i = 0; i < 2; i++) {
-            self.ctx.lineWidth = 3;
-            self.ctx.strokeColor = cc.Color.BLACK;
-            self.ctx.moveTo(p1.x + i * 10, p1.y);
-            self.ctx.lineTo(p2.x, p2.y);
-            self.ctx.stroke();
-        }
     }
     /** 绘制视野区域 */
     renderSightArea(): void {
@@ -144,7 +129,6 @@ export default class MainC extends SceneC {
     }
     /** 绘制遮罩 */
     renderMask(): void {
-        //_updateGraphics 每次重写这个函数需要将绑定的事件取消掉并重新注册
         let potArr = this._lightVertsArray;
         // let potArr = GameDatas.vertexs;
         this.mask._updateGraphics = () => {

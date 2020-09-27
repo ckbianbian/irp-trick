@@ -160,8 +160,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 640,
+      "height": 960
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        790.6676620082584,
+        790.6811936551925,
         0,
         0,
         0,
@@ -215,7 +215,7 @@
       "a": 255
     },
     "_depth": -1,
-    "_zoomRatio": 0.5,
+    "_zoomRatio": 1,
     "_targetTexture": null,
     "_fov": 60,
     "_orthoSize": 10,
@@ -820,7 +820,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Node",
+    "_name": "ray",
     "_objFlags": 0,
     "_parent": {
       "__id__": 7
@@ -1332,7 +1332,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 180,
+    "_opacity": 200,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -1552,9 +1552,31 @@
       "width": 640,
       "height": 960
     },
-    "_fitWidth": false,
-    "_fitHeight": true,
+    "_fitWidth": true,
+    "_fitHeight": false,
     "_id": "59Cd0ovbdF4byw5sbjJDx7"
+  },
+  {
+    "__type__": "81a54q+e+5NFISjVxAH2W/l",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "player": {
+      "__id__": 12
+    },
+    "wall": {
+      "__id__": 19
+    },
+    "graphics": {
+      "__id__": 16
+    },
+    "mask": {
+      "__id__": 32
+    },
+    "_id": "74XWR0L8xEPrM7Df4sAXYy"
   },
   {
     "__type__": "cc.Widget",
@@ -1579,30 +1601,8 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0,
-    "_id": "29zXboiXFBKoIV4PQ2liTe"
-  },
-  {
-    "__type__": "81a54q+e+5NFISjVxAH2W/l",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "player": {
-      "__id__": 12
-    },
-    "wall": {
-      "__id__": 19
-    },
-    "graphics": {
-      "__id__": 16
-    },
-    "mask": {
-      "__id__": 32
-    },
-    "_id": "74XWR0L8xEPrM7Df4sAXYy"
+    "_originalWidth": 640,
+    "_originalHeight": 960,
+    "_id": "80NMIf/MxCw4P5jFCVc8gS"
   }
 ]
