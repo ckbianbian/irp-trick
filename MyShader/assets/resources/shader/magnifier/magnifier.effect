@@ -130,8 +130,8 @@ CCProgram fs %{
     vec4 o = vec4(1, 1, 1, 1);
     vec2 tempCenter = vec2(0.5,abs(sin(cc_time.x)));
     // vec2 uv = getTextPos(v_uv0, centerPoint, scaleDegree);
-    // vec2 uv = getDisTextPos(v_uv0, tempCenter, scaleDegree, toCenterDis);
-    vec2 uv = getDisTextPos(v_uv0, magnifierCenterPoint, magnifierScale, magnifierRadius);
+    // vec2 uv = getDisTextPos(v_uv0, tempCenter, scaleDegree, toCenterDis); // 这个是动态放大镜位置的一个效果
+    vec2 uv = getDisTextPos(v_uv0, magnifierCenterPoint, magnifierScale, magnifierRadius); // 这个是更具传入的参数改变放大中心的方法
 
     #if USE_TEXTURE
       CCTexture(texture, uv, o);
