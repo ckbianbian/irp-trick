@@ -106,10 +106,10 @@ export default class MainC extends SceneC {
     }
     /** 通过射线数量绘制辐射线 */
     drawRayByNum(p1): void {
-        let self = this;
+        // let self = this;
         // self.ctx = this.graphics.getComponent(cc.Graphics);
         // self.ctx.clear();
-        let p2 = cc.v2(p1.x, p1.y + this._rayRadiu);
+        // let p2 = cc.v2(p1.x, p1.y + this._rayRadiu);
         let unitRd = 2 * Math.PI / this._rayNum;
         this._lightVertsArray = new Array();
         for (let i = 0; i < this._rayNum; i++) {

@@ -13,6 +13,14 @@
         "USE_TEXTURE": true,
         "INPUT_IS_GAMMA": false,
         "USE_ALPHA_TEST": false
+      },
+      "props": {
+        "magnifierCenterPoint": {
+          "__type__": "cc.Vec2",
+          "x": 0.5,
+          "y": 0.5
+        },
+        "nodeTextureProportion": 0.7
       }
     }
   }
