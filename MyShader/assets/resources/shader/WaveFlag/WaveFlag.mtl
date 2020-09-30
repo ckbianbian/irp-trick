@@ -1,10 +1,10 @@
 {
   "__type__": "cc.Material",
-  "_name": "New Material",
+  "_name": "WaveFlag",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "b33b6062-bd43-4098-84f4-0d1270701f47"
+    "__uuid__": "7508d7db-8755-41de-a885-bb9cb7957e86"
   },
   "_techniqueIndex": 0,
   "_techniqueData": {
