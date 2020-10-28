@@ -50,9 +50,9 @@ export default class MainC extends SceneC {
     })
     mask = null;
     /** 辐射线数量 */
-    _rayNum = 360;
+    _rayNum = 720;
     /** 辐射线半径 */
-    _rayRadiu = 800;
+    _rayRadiu = 1000;
     /** 视野顶点数组 */
     _lightVertsArray = new Array();
 

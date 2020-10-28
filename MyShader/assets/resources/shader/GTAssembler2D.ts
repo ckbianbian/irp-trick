@@ -46,7 +46,7 @@ export default class GTAssembler2D extends cc.Assembler {
         this._renderData.init(this);
 
         this.initLocal();
-        this.initData();
+        this.initData(comp);
     }
 
     get verticesFloats() {

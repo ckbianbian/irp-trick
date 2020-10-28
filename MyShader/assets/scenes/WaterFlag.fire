@@ -58,7 +58,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": true,
-    "_id": "5187d380-97f7-41c3-8896-9a749c60a00e"
+    "_id": "8484a60e-82f9-4aa3-95f9-bfb404b5d878"
   },
   {
     "__type__": "cc.Node",
@@ -95,8 +95,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 640,
+      "height": 960
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -107,8 +107,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        480,
         320,
+        480,
         0,
         0,
         0,
@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        547.2223563047023,
+        547.3280551917652,
         0,
         0,
         0,
@@ -232,7 +232,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "main",
+    "_name": "hello",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -272,8 +272,8 @@
         0,
         0,
         0,
-        0.7071067811865475,
-        0.7071067811865476,
+        0,
+        1,
         1,
         1,
         1
@@ -283,14 +283,14 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 90
+      "z": 0
     },
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "dfSAsZDXZNX7HbLIiWDnyH"
+    "_id": "2aywpW+B1Ek7Tywa4/Ar2B"
   },
   {
     "__type__": "cc.Sprite",
@@ -302,7 +302,7 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "dcd3831a-a273-4d4a-a21b-d66f092bfe0d"
+        "__uuid__": "f7f8472f-2a4e-4548-b982-4392f1dd9fa7"
       }
     ],
     "_srcBlendFactor": 770,
@@ -322,7 +322,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "efy9V1n4dBU5m8iY9TKKQu"
+    "_id": "fab4i7hldNBYaY2UiVtHh0"
   },
   {
     "__type__": "cc.Canvas",
@@ -334,8 +334,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 640,
+      "height": 960
     },
     "_fitWidth": false,
     "_fitHeight": true,
