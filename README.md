@@ -4,3 +4,6 @@ Study some interesting shader.
  2. 动态视野阴影：DynamicShadow（场景名称,之后会优化,增加灯光渐变效果）
  3. 旗帜飘动：WaveFlag（场景名称）
  4. 水波飘动加载：WaterFlag（场景名称）
+ 5. 三种动态迷宫生成方案：（待完成）
+ 6. 硫磺火（水柱）攻击：（待完成）
+ 7. 颜色包围占色：（待完成）
