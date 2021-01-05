@@ -14,6 +14,9 @@ export default class StateFuncC extends SceneC {
     editBox = null;
     @property(cc.Label)
     info = null;
+    @property({ type: cc.RichText, displayName: '富文本' })
+    riceInfo: cc.RichText = null;
+
     private _infoText: string = '1';
     public get infoText(): string {
         return this._infoText;
@@ -111,6 +114,55 @@ export default class StateFuncC extends SceneC {
         this.scheduleOnce(() => {
             this.infoText = 'hello world.';
         }, 3);
+        let str = this.changeRiceInfo<string>('wck');
+    }
+    changeRiceInfoBak<T>(arg: T): T {
+        let str = '<color=yellow>wck</c><color=red>我爱你</c>巴拉巴拉巴拉';
+        let charArr = str.replace(/<.+?\/?>/g, '').split('');
+        let tempStrArr = [str];
+        for (let i = charArr.length; i > 1; i--) {
+            let curStr = tempStrArr[charArr.length - i];
+            let lastIdx = curStr.lastIndexOf(charArr[i - 1]);
+            let prevStr = curStr.slice(0, lastIdx);
+            let nextStr = curStr.slice(lastIdx + 1, curStr.length);
+
+            tempStrArr.push(prevStr + nextStr);
+        }
+        console.log(tempStrArr)
+        cc.log(charArr);
+        return arg;
+    }
+    changeRiceInfo<T>(arg: T): T {
+        let str = '<color=yellow>wck</c><color=red>我爱你</c>巴拉巴拉巴拉';
+        let temp = '';
+        let jump = true;
+        let firstArr = [];
+        let charArr = str.replace(/<.+?\/?>/g, '').split('');
+        for (let char of str) {
+            if (char == '<') { jump = false; temp = ''; }
+            if (jump) { firstArr.push(char); }
+            if (!jump) { temp += char; }
+            if (char == '>') { firstArr.push(temp); jump = true; } // cc.log(temp); }
+        }
+        let printArr = [];
+        printArr.push(firstArr.join(''));
+        for (let i = charArr.length - 1; i > 0; i--) {
+            let testChar = charArr[i];
+            for (let j = firstArr.length; j > 0; j--) {
+                let char = firstArr[j];
+                if (char === testChar) {
+                    firstArr.splice(j, 1);
+                    printArr.push(firstArr.join(''));
+                    break;
+                }
+            }
+        }
+        let printRvArr = printArr.reverse();
+        this.schedule(() => {
+            this.riceInfo.string = '';
+            this.riceInfo.string += printRvArr.shift();
+        }, 0.2, printRvArr.length - 1);
+        return arg;
     }
     /** 信息编辑框改变数据 */
     changeInfoEditBox() {

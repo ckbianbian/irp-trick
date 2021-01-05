@@ -110,11 +110,13 @@ CCProgram fs %{
     // t.y = fract(t.y + cc_time.x/10.);
     // t.x = (v_uv0.x-0.5) * cos(cc_time.x) - (v_uv0.y-0.5)*sin(cc_time.x)+0.5;
     // t.y = (v_uv0.x-0.5) * sin(cc_time.x) + (v_uv0.y-0.5)*cos(cc_time.x)+0.5;
-    o = texture(texture, t);
-
-    o*=v_color;
 
     float a = 0.01*abs(sin(cc_time.x*2.))*sin(abs(cos(cc_time.x))*v_uv0.x*20.0-cc_time.x*10.0)+abs(cos(cc_time.x/5.0)); // 如果y在曲线上方a为1，如果y在曲线下方a为0
+    if(t.y > a){
+      t.y =  t.y + sin(abs(cos(cc_time.x))*t.x*20.0-cc_time.x*10.0)*0.01;
+    }
+    o = texture(texture, t);
+
     // if(v_uv0.y > a) {
       float reduce = 1.0-smoothstep(0.,0.03,v_uv0.y - a);
       reduce = max(0.6, reduce);
@@ -125,7 +127,8 @@ CCProgram fs %{
       }
       o.a = reduce;
     // }
-     ALPHA_TEST(o);
+    o*=v_color;
+    ALPHA_TEST(o);
     gl_FragColor = o;
   }
 }%

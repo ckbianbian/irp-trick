@@ -1,0 +1,17 @@
+{
+  "__type__": "cc.Material",
+  "_name": "shadow",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "ea1f6c40-afc4-4719-b7b7-4ffa417684b2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true
+      }
+    }
+  }
+}
