@@ -29,8 +29,8 @@ const VEC2_ZERO = cc.Vec2.ZERO;
 let temp_uvs = [];
 export default class FlipPageAssembler extends GTSimpleSpriteAssembler2D {
     // 根据自定义顶点格式，调整下述常量
-    verticesCount = 4;
-    indicesCount = 6;
+    verticesCount = 4; // 顶点总数量
+    indicesCount = 6; // 信息长度
     uvOffset = 2;
     uv1Offset = 4;
     uv2Offset = 6;
