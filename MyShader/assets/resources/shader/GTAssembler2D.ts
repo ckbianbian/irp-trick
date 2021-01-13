@@ -26,13 +26,13 @@ export default class GTAssembler2D extends cc.Assembler {
     // 顶点属性数据排列，每一格是32位 (float32/uint32)
     // x|y|u|v|color|x|y|u|v|color|...
     // 其中uv在一组数据中的偏移是2，color的偏移是4
-    verticesCount = 4;
-    indicesCount = 6;
-    floatsPerVert = 5;
+    verticesCount = 4; // 顶点数量
+    indicesCount = 6; // 三角形顶点下表数量
+    floatsPerVert = 5; // 每个顶点数据
 
     // vdata offset info
-    uvOffset = 2;
-    colorOffset = 4;
+    uvOffset = 2; // uv位置的偏移量
+    colorOffset = 4; // 颜色值的偏移量
 
     protected _renderData: cc.RenderData = null;
     protected _local: any = null;          // 中间结果。[l,b,r,t]。node对象左下、右上顶点的本地坐标，即相对于锚点的偏移
@@ -294,6 +294,7 @@ export default class GTAssembler2D extends cc.Assembler {
 
     /** 更新渲染数据 */
     protected updateRenderData(comp: cc.RenderComponent) {
+        // cc.log('updateRenderData');
         if (comp._vertsDirty) {
             this.updateUVs(comp); // 更新材质UV坐标
             this.updateVerts(comp); // 更新顶点POS坐标

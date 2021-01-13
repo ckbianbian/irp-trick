@@ -47,6 +47,23 @@ CCProgram vs %{
 
     v_color = a_color;
 
+    if(pos.x > .0&&pos.y>.0){
+        //蓝 点A,A'
+        v_color = vec4(0.0,0.0,1.0,1.0);
+    }
+    if(pos.x>.0&&pos.y<.0){
+        //红 点B'
+        v_color = vec4(1.0,0.0,0.0,1.0);
+    }
+    if(pos.x<.0&&pos.y<.0){
+        //绿 点C,C'
+        v_color = vec4(0.0,1.0,0.0,1.0);
+    }
+    if(pos.x<.0&&pos.y>.0){
+        //红 点B 
+        v_color = vec4(1.0,0.0,0.0,1.0);
+    }
+
     gl_Position = pos;
   }
 }%
@@ -84,6 +101,6 @@ CCProgram fs %{
 
     ALPHA_TEST(o);
 
-    gl_FragColor = o;
+    gl_FragColor = v_color;
   }
 }%

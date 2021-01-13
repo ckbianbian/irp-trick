@@ -307,4 +307,21 @@ export class PolygonUtil {
         if (a>b) return 1;
         else return -1;
     }
+    /**
+     * @description 已知线段和一个点，求该线段的对称点
+     * @param point 对称点
+     * @param p1 线段上的一个点
+     * @param p2 线段上的第二个点
+     */
+    private static getReflectPointByPointAndLine(point, p1, p2): cc.Vec2 {
+        let vec_r = cc.v2(0, 0);
+        let a1 = (p2.y - p1.y) / (p2.x - p1.x);
+        let b1 = p2.y - a1 * p2.x;
+        let a2 = -1 / a1;
+        let b2 = point.y - a2 * point.x;
+        let returnX = ((a1 - a2) * point.x + 2 * b1 - 2 * b2) / (a2 - a1);
+        let returnY = ((a1 - a2) * point.y - 2 * a1 * b2 + 2 * a2 * b1) / (a2 - a1);
+
+        return cc.v2(returnX, returnY);
+    }
 }
