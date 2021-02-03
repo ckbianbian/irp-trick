@@ -1,0 +1,19 @@
+{
+    "name": "hello-world",
+    "version": "0.0.1",
+    "description": "一份简单的扩展包",
+    "author": "Cocos Creator",
+    "main": "main.js",
+    "main-menu": {
+        "i18n:MAIN_MENU.package.title/i18n:hello-world.titlename/i18n:hello-world.publish": {
+            "message": "hello-world:open-pannel"
+        }
+    },
+    "panel": {
+        "main": "panel/index.js",
+        "type": "dockable",
+        "title": "Simple Panel",
+        "width": 400,
+        "height": 300
+    }
+}

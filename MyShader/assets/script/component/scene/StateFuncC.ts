@@ -1,3 +1,4 @@
+import { VM } from "../../lib/mvvm/ViewModel";
 import SceneC from "../SceneC";
 
 const { ccclass, property } = cc._decorator;
@@ -16,6 +17,14 @@ export default class StateFuncC extends SceneC {
     info = null;
     @property({ type: cc.RichText, displayName: '富文本' })
     riceInfo: cc.RichText = null;
+
+    data = {
+        id: 100,
+        name: 'wck',
+        hpMax: 100,
+        hpMin: 0,
+        hp: 50
+    }
 
     private _infoText: string = '1';
     public get infoText(): string {
@@ -55,6 +64,8 @@ export default class StateFuncC extends SceneC {
         //         clear.disabled = fsm.cannot('clear', true);
         //     }, 0); // defer until end of current tick to allow fsm to complete transaction
         // };
+
+        VM.add(this.data, 'gb');
 
         this.fsm = new StateMachine({
             init: 'none',
@@ -133,7 +144,7 @@ export default class StateFuncC extends SceneC {
         return arg;
     }
     changeRiceInfo<T>(arg: T): T {
-        let str = '<color=yellow>wck</c><color=red>我爱你</c>巴拉巴拉巴拉';
+        let str = '<color=yellow>wck</c><color=red>我爱你</c>巴拉巴拉巴拉\n 小北是个憨憨';
         let temp = '';
         let jump = true;
         let firstArr = [];

@@ -1,0 +1,46 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "cc.JsonAsset",
+      [
+        "_name",
+        "json"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "Bullet",
+      {
+        "fire_ball_bullet": {
+          "id": "fire_ball_bullet",
+          "skin": "",
+          "component": "FireBallBulletC",
+          "type": [
+            "node",
+            "bullet"
+          ],
+          "moveTiled": {}
+        }
+      }
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

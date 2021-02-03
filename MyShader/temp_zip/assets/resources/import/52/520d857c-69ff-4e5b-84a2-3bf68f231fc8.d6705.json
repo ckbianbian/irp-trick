@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "feq7ysQgJH/bZDs4y40ewA"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "tile7",
+      "rect": [
+        0,
+        0,
+        395,
+        395
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        395,
+        395
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "63tAZ1bKZONYPg00tQaACR"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "底框",
+      "rect": [
+        0,
+        0,
+        583,
+        618
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        583,
+        618
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

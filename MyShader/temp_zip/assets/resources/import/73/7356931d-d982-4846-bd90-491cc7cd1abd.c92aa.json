@@ -1,0 +1,35 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "cc.TextAsset",
+      [
+        "_name",
+        "text"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "README",
+      "## 飞行大陆JSON文件描述\r\n\r\n***\r\n\r\n### SystemConfig(系统配置)JSON文件键值描述：\r\n* #### version：游戏版本号。\r\n* #### game_name：游戏名称。\r\n* #### loadResArray：加载资源数组。\r\n* #### localStorage_template：本地存档模版。\r\n* #### scenes：场景信息。\r\n\r\n### Hero(英雄)JSON文件键值描述：\r\n* #### id：ID。\r\n* #### skin：皮肤。\r\n* #### component：挂载脚本名称。\r\n* #### name：名称。\r\n* #### description：描述。\r\n* #### atk_type：攻击类型。\r\n"
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

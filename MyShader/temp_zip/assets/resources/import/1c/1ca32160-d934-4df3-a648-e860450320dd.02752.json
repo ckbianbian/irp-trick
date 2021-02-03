@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "b07nS9ITRD05DrtuR4GUay"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "tile4",
+      "rect": [
+        0,
+        0,
+        218,
+        218
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        218,
+        218
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]
