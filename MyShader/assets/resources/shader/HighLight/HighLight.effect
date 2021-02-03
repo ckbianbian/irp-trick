@@ -79,15 +79,20 @@ CCProgram fs %{
 
   float getOpacityByCheckAround(vec2 point, sampler2D texture, float dis){
     float aA = 0.;
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 0., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 20., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 40., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 60., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 80., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 100., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 120., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 140., dis)).a);
-    aA = max(aA, texture(texture, getPointByRdAndRadio(point, 160., dis)).a);
+    float num = 36.;
+    float per = 360. / num;
+    float circleNum = 10.;
+    float avergeA = 0.;
+    float perRd = dis/circleNum;
+    for(float j = 1.; j <= 10.; j++){
+      float circleAvgA = 0.;
+      float perDis = j * perRd;
+      for(float i = 0.0; i < 36.; i ++){
+        circleAvgA += texture(texture, getPointByRdAndRadio(point, per * i, perDis)).a;
+      }
+      avergeA += circleAvgA / num;
+    }
+    aA = avergeA / circleNum;
     return aA;
   }
 
@@ -99,13 +104,16 @@ CCProgram fs %{
     #endif
     vec2 t_uv = vec2(v_uv0.x ,v_uv0.y);
     vec4 otColor = texture(texture, t_uv);
-    float param = abs(sin(cc_time.x  * 3.)) * 0.01;
-    float test = getOpacityByCheckAround(t_uv, texture, param);
+    float param = abs(sin(cc_time.x  * 3.)) * 0.05;
     o *= v_color;
 
-    if(test>0.&&o.a<0.5){
-      // float oA = smoothstep(0.45,0.5, abs(distance(v_uv0, vec2(0.5, 0.5))));
-      o = vec4(1.,1.,0.,1.);
+    if(o.a<0.5){
+      float test = getOpacityByCheckAround(t_uv, texture, param);
+      // if(test>0.){
+      //   // float oA = smoothstep(0.45,0.5, abs(distance(v_uv0, vec2(0.5, 0.5))));
+      // }
+      float alpha = -1.0 * (test - 1.0) * (test - 1.0) * (test - 1.0) * (test - 1.0) + 1.0;
+      o = vec4(1.,0.,0., alpha);
     }
 
     // o.a = 1.-smoothstep(0.3, 0.5, abs(distance(v_uv0, vec2(0.5,0.5))));
