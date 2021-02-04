@@ -1,0 +1,200 @@
+// Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.  
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        texture: { value: white }
+        alphaThreshold: { value: 0.5 }
+        # 纹理尺寸
+        textureSize: { 
+          value: [100.0, 100.0],
+          editor: {
+            tooltip: "纹理尺寸px（宽 x 高）"
+          }
+        }
+}%
+
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec3 a_position;
+  in vec4 a_color;
+  out vec4 v_color;
+
+  #if USE_TEXTURE
+  in vec2 a_uv0;
+  out vec2 v_uv0;
+  #endif
+
+  void main () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if CC_USE_MODEL
+    pos = cc_matViewProj * cc_matWorld * pos;
+    #else
+    pos = cc_matViewProj * pos;
+    #endif
+
+    #if USE_TEXTURE
+    v_uv0 = a_uv0;
+    #endif
+
+    v_color = a_color;
+
+    gl_Position = pos;
+  }
+}%
+
+
+CCProgram fs %{
+  precision highp float;
+  
+  #include <alpha-test>
+  #include <texture>
+  #include <cc-global>
+
+  in vec4 v_color;
+
+  #if USE_TEXTURE
+  in vec2 v_uv0;
+  uniform sampler2D texture;
+  #endif
+  // 定义无理数
+  #define e 2.718281828459045
+  // 定义标准方差值（方差值越大，越模糊，但是需要计算的高斯矩阵范围会变大，从而带来巨大的计算量）
+  #define stDev 0.84089642
+  // 定义π
+  #define pi 3.141592653589793
+  // 接收外部变量
+  uniform GaussianBlur {
+    // 纹理尺寸（宽 x 高）（px）
+    vec2 textureSize;
+
+    // // 标准方差值
+    // float stDev;
+  };
+  /**
+   * 获取权重(对应二维高斯函数公式，见 https://zh.wikipedia.org/wiki/%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A )
+   */
+  float getWeight(float x, float y) {
+    return (1.0 / (2.0 * pi * pow(stDev, 2.0))) * pow(1.0 / e, (pow(x, 2.0) + pow(y, 2.0)) / (2.0 * pow(stDev, 2.0)));
+  }
+  vec4 getTextureColor(sampler2D texture, vec2 v_uv0) {
+    if (v_uv0.x > 1.0 || v_uv0.x < 0.0 || v_uv0.y > 1.0 || v_uv0.y < 0.0) {
+      return vec4(0.0, 0.0, 0.0, 0.0);
+    }
+    return texture(texture, v_uv0);
+  }
+  float sobel(vec2 uv, sampler2D texture){
+    float sobelX = 0.;
+    float sobelY = 0.;
+    for(float i = -1.0; i <= 1.0; i += 2.0){
+      float perXi = i / textureSize.x;
+      float perYi = i / textureSize.y;
+      for(float j = -1.0; j <= 1.0; j ++){
+        float perXj = j*0.001 / textureSize.x;
+        float perYj = j*0.001 / textureSize.y;
+        // float perXj = j*0.0001;
+        // float perYj = j*0.0001; 
+        vec4 xColor = texture(texture,uv + vec2(perXi, perYj));
+        vec4 yColor = texture(texture,uv + vec2(perXj, perYi));
+        float sobelXA = 0.;
+        float sobelYA = 0.;
+        sobelXA = i *3.* xColor.a;
+        sobelYA = i *3.* yColor.a;
+        if(j == 0.0){
+          sobelXA = i * 10.0 * xColor.a;
+          sobelYA = i * 10.0 * yColor.a;
+        }
+        sobelX += sobelXA;
+        sobelY += sobelYA;
+      }
+    }
+    // return abs(sobelX) + abs(sobelY);
+    // return inversesqrt(sobelX*sobelX + sobelY*sobelY);
+    return pow(sobelX*sobelX + sobelY*sobelY,0.5);
+  }
+
+  void main () {
+    vec4 o = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      CCTexture(texture, v_uv0, o);
+    #endif
+
+
+
+    o *= v_color;
+    vec2 temp_uv = v_uv0;
+
+    if(o.a <= 0.9){
+      // 根据高斯分布（也叫正态分布），在3个标准差范围内的分布比例占到99%的权重，因此我们只需要计算矩阵范围 [6 * stDev + 1, 6 * stDev +1] 上的权重
+      const float size = floor(stDev * 6.0 + 1.0);
+      const float halfSize = floor(size / 2.0);
+
+      // 原点
+      float totalWeight = getWeight(0.0, 0.0);
+
+      // X轴正方向上的权重 * 2.0 就是整个X轴上的权重
+      for(float x = 1.0; x <= halfSize; x++) {
+        totalWeight += getWeight(x, 0.0) * 2.0;
+      } 
+      // Y轴正方向上的权重 * 2.0 就是整个Y轴上的权重
+      for(float y = 1.0; y <= halfSize; y++) {
+        totalWeight += getWeight(0.0, y) * 2.0;
+      } 
+      // 第一象限的权重 * 4.0 就是4个象限的权重
+      for(float x = 1.0; x <= halfSize; x++) {
+        for (float y = 1.0; y<= halfSize; y++) {
+          totalWeight += getWeight(x, y) * 4.0;
+        }
+      }
+      // float oA = sobel(temp_uv, texture);
+      float oA =0.0;
+      float onePxWidth = 1.0 / textureSize.x;
+      float onePxHeight = 1.0 / textureSize.y;
+      for(float x = -halfSize; x<= halfSize; x++) {
+        for (float y = -halfSize; y<= halfSize; y++) {
+          // 求出对应坐标的真正权重（对应权重矩阵）
+          float weight = getWeight(x, y) / totalWeight;
+
+          // 求出对应坐标像素颜色值的加权值
+          oA += sobel(temp_uv + vec2(onePxWidth  * x, onePxHeight  * y), texture) * weight;
+        }
+      }
+      // if(oA>0.){
+        // oA *= abs(sin(cc_time.x));
+        vec4 outlineColor = vec4(1.,1.,0.,oA);
+        // o = vec4(1.,1.,0.,oA);
+        // oA = smoothstep(o.a,1.0,oA);
+        // o.a = mix(0., o.a, 1.-oA);
+        vec4 finalColor = mix(o, outlineColor, oA);
+        // o.r = smoothstep(o.r, outlineColor.r, oA);
+        // o.b = smoothstep(o.b, outlineColor.b, oA);
+        // o.g = smoothstep(o.g, outlineColor.g, oA);
+        // o.a = smoothstep(o.a, outlineColor.a, oA);
+        o = finalColor;
+      // }
+    }
+
+    ALPHA_TEST(o);
+    // if(oA > 0.){
+    //   o = vec4(1.,1.,0.,1.);
+    // }
+
+
+    gl_FragColor = o;
+  }
+}%

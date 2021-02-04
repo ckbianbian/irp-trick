@@ -81,10 +81,10 @@ CCProgram fs %{
     float aA = 0.;
     float num = 36.;
     float per = 360. / num;
-    float circleNum = 10.;
+    float circleNum = 5.;
     float avergeA = 0.;
     float perRd = dis/circleNum;
-    for(float j = 1.; j <= 10.; j++){
+    for(float j = 1.; j <= 5.; j++){
       float circleAvgA = 0.;
       float perDis = j * perRd;
       for(float i = 0.0; i < 36.; i ++){
@@ -104,16 +104,16 @@ CCProgram fs %{
     #endif
     vec2 t_uv = vec2(v_uv0.x ,v_uv0.y);
     vec4 otColor = texture(texture, t_uv);
-    float param = abs(sin(cc_time.x  * 3.)) * 0.05;
+    float param = abs(sin(cc_time.x  * 3.)) * 0.02;
     o *= v_color;
 
-    if(o.a<0.5){
+    if(o.a<0.1){
       float test = getOpacityByCheckAround(t_uv, texture, param);
       // if(test>0.){
       //   // float oA = smoothstep(0.45,0.5, abs(distance(v_uv0, vec2(0.5, 0.5))));
       // }
-      float alpha = -1.0 * (test - 1.0) * (test - 1.0) * (test - 1.0) * (test - 1.0) + 1.0;
-      o = vec4(1.,0.,0., alpha);
+      float alpha = -1.0 * (test - 1.0) * (test - 1.0) * (test - 1.0) * (test - 1.0) + 1.0; // 曲线函数影响色值
+      o = vec4(0.,0.,0., alpha);
     }
 
     // o.a = 1.-smoothstep(0.3, 0.5, abs(distance(v_uv0, vec2(0.5,0.5))));
