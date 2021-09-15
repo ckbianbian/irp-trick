@@ -104,10 +104,10 @@ CCProgram fs %{
     #endif
     vec2 t_uv = vec2(v_uv0.x ,v_uv0.y);
     vec4 otColor = texture(texture, t_uv);
-    float param = abs(sin(cc_time.x  * 3.)) * 0.02;
+    float param = abs(sin(cc_time.x  * 3.)) * 0.05;
     o *= v_color;
 
-    if(o.a<0.1){
+    if(o.a<0.5){
       float test = getOpacityByCheckAround(t_uv, texture, param);
       // if(test>0.){
       //   // float oA = smoothstep(0.45,0.5, abs(distance(v_uv0, vec2(0.5, 0.5))));

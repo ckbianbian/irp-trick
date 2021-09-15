@@ -20,7 +20,9 @@
           "x": 0.5,
           "y": 0.5
         },
-        "nodeTextureProportion": 0.7
+        "nodeTextureProportion": 0.7,
+        "magnifierRadius": 0.3,
+        "magnifierScale": 0.3
       }
     }
   }

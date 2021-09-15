@@ -253,6 +253,7 @@ export default class GTAssembler2D extends cc.Assembler {
         // 4个顶点的uv坐标，对应左下、右下、左上、右上
         // 如果是cc.Sprite组件，这里取sprite._spriteFrame.uv;
         let uv = [0, 0, 1, 0, 0, 1, 1, 1];
+        // let uv = comp._spriteFrame.uv;
         let uvOffset = this.uvOffset;
         let floatsPerVert = this.floatsPerVert;
         let verts = this._renderData.vDatas[0];

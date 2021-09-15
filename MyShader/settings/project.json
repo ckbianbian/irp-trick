@@ -1,3 +1,6 @@
 {
-  "last-module-event-record-time": 1611657457783
+  "last-module-event-record-time": 1611657457783,
+  "migrate-history": [
+    "cloud-function"
+  ]
 }

@@ -65,7 +65,7 @@ export default class FlipCardAssembler extends GTAssembler2D {
         // fill indices
         let ibuf = buffer._iData,
             indiceOffset = offsetInfo.indiceOffset,
-            vertexId = offsetInfo.vertexOffset;             // vertexId是已经在buffer里的顶点数，也是当前顶点序号的基数
+            vertexId = offsetInfo.vertexOffset  ;             // vertexId是已经在buffer里的顶点数，也是当前顶点序号的基数
         for (let i = 0, l = iData.length; i < l; i++) {
             ibuf[indiceOffset++] = vertexId + iData[i];
         }
@@ -93,7 +93,7 @@ export default class FlipCardAssembler extends GTAssembler2D {
         }
     }
 
-    updateVerts(sprite) { // 5
+    updateVerts(sprite: FlipCardSprite) { // 5
         let xNum = sprite.xPointNum;
         let yNum = sprite.yPointNum;
         if (sprite) {

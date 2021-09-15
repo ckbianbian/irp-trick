@@ -181,10 +181,10 @@ CCProgram fs %{
         // oA = smoothstep(o.a,1.0,oA);
         // o.a = mix(0., o.a, 1.-oA);
         vec4 finalColor = mix(o, outlineColor, oA);
-        // o.r = smoothstep(o.r, outlineColor.r, oA);
-        // o.b = smoothstep(o.b, outlineColor.b, oA);
-        // o.g = smoothstep(o.g, outlineColor.g, oA);
-        // o.a = smoothstep(o.a, outlineColor.a, oA);
+        // o.r = smoothstep(o.r, outlineColor.r, o.a);
+        // o.b = smoothstep(o.b, outlineColor.b, o.a);
+        // o.g = smoothstep(o.g, outlineColor.g, o.a);
+        // o.a = smoothstep(outlineColor.a, o.a , o.a);
         o = finalColor;
       // }
     }
