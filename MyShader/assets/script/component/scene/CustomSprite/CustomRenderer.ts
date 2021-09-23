@@ -32,6 +32,18 @@ export default class CustomRenderer extends cc.Sprite {
         assembler.indicesCount = (this.rectVertArr.length / 2 - 1) * 6;
     }
 
+    createVertsByArrAndScale(arr, scale = 3): void {
+        this.rectVertArr = this.getRectPointByPointArr(arr, scale);
+        this.updateBuffer();
+    }
+
+    updateBuffer() {
+        let verticesCount = (this.rectVertArr.length / 2 - 1) * 4, indicesCount = (this.rectVertArr.length / 2 - 1) * 6;
+        let flexBuffer = this._assembler._renderData._flexBuffer;
+        flexBuffer.reserve(verticesCount, indicesCount);
+        flexBuffer.used(verticesCount, indicesCount);
+    }
+
     createVerts() {
         let endPoint = { x: 1000, y: 0 };
         let yOffset = 300;
@@ -91,8 +103,8 @@ export default class CustomRenderer extends cc.Sprite {
                 normal01 = element[0].clone();
             }
             normal01.normalizeSelf().multiplyScalar(scale);
-            rectArr.push({ x: point.x + normal01.x, y: point.y + normal01.y })
-            rectArr.push({ x: point.x - normal01.x, y: point.y - normal01.y })
+            rectArr.push({ x: point.x + normal01.x + cc.winSize.width / 2, y: point.y + normal01.y + cc.winSize.height / 2 })
+            rectArr.push({ x: point.x - normal01.x + cc.winSize.width / 2, y: point.y - normal01.y + cc.winSize.height / 2 })
         }
         return rectArr;
     }

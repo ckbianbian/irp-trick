@@ -35,7 +35,7 @@ export default class CustomVertsAssembler extends CustomAssembler2D {
 
     initData() {
         let data = this._renderData;
-        data.createData(0, this.verticesFloats, this.indicesCount);
+        data.createFlexData(0, this.verticesFloats, this.indicesCount);
         this.initUVs();
         // this._updateIndices();
     }
@@ -50,6 +50,35 @@ export default class CustomVertsAssembler extends CustomAssembler2D {
             iData[i + 5] = vid + 2;
         }
     }
+
+    fillBuffers(comp, renderer) {
+        let { vData, iData, usedVertices, usedIndices, usedVerticesFloats } = this._renderData._flexBuffer;
+
+        let buffer = renderer._meshBuffer;
+        let offsetInfo = buffer.request(usedVertices, usedIndices);
+
+        // buffer data may be realloc, need get reference after request.
+
+        // fill vertices
+        let vertexOffset = offsetInfo.byteOffset >> 2,
+            vbuf = buffer._vData;
+
+        if (vData.length + vertexOffset > vbuf.length) {
+            vbuf.set(vData.subarray(0, usedVerticesFloats), vertexOffset);
+        }
+        else {
+            vbuf.set(vData, vertexOffset);
+        }
+
+        // fill indices
+        let ibuf = buffer._iData,
+            indiceOffset = offsetInfo.indiceOffset,
+            vertexId = offsetInfo.vertexOffset;
+        for (let i = 0, l = iData.length; i < l; i++) {
+            ibuf[indiceOffset++] = vertexId + iData[i];
+        }
+    }
+
     initUVs() {
         let indices = this._renderData.iDatas[0];
         let count = indices.length / 6;
@@ -66,13 +95,13 @@ export default class CustomVertsAssembler extends CustomAssembler2D {
     }
 
     updateWorldVerts(comp: CustomRenderer): void {
-        // this.normalVertsCalculate(comp);
         let local = this._local;
         let verts = this._renderData.vDatas[0];
 
         let vertexOffset = 0;
         let floatsPerVert = this.floatsPerVert;
         let vertsArr = comp.rectVertArr;
+
         for (let index = 2; index < vertsArr.length; index += 2) {
             // left bottom
             verts[vertexOffset] = vertsArr[index - 2].x;

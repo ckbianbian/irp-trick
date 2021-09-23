@@ -1,3 +1,5 @@
+import CustomRenderer from "../CustomSprite/CustomRenderer";
+
 const { ccclass, property } = cc._decorator;
 
 class Bullet {
@@ -17,6 +19,9 @@ export default class WaterAtkC extends cc.Component {
     @property({ type: cc.Graphics, displayName: '画板' })
     pannel: cc.Graphics = null;
 
+    @property(cc.Node)
+    board = null;
+
 
     inputCode: Set<number> = new Set(); // 输入code
     private _atk = 0; // 攻击
@@ -33,6 +38,7 @@ export default class WaterAtkC extends cc.Component {
     atkBulletSpeed = 30;
     atkBulletUnitWidth = 20;
     atkBulletWidth = 800;
+    _bulletSpacing = 30;
     bulletArray = [];
 
     onLoad(): void {
@@ -66,10 +72,10 @@ export default class WaterAtkC extends cc.Component {
             case 65: this.mvDrVec.x = -1; break; // A
             case 83: this.mvDrVec.y = -1; break; // S
             case 68: this.mvDrVec.x = 1; break; // D
-            case 38: this.atkDrVec.y = 1; break; // ↑
-            case 40: this.atkDrVec.y = -1; break; // ↓
-            case 37: this.atkDrVec.x = -1; break; // ←
-            case 39: this.atkDrVec.x = 1; break; // →
+            case 38: this.atkDrVec.addSelf(cc.v2(0, 1)); break; // ↑
+            case 40: this.atkDrVec.addSelf(cc.v2(0, -1)); break; // ↓
+            case 37: this.atkDrVec.addSelf(cc.v2(-1, 0)); break; // ←
+            case 39: this.atkDrVec.addSelf(cc.v2(1, 0)); break; // →
             case 32: this.inputCode.add(keyCode); break; // space
             default: break;
         }
@@ -82,10 +88,10 @@ export default class WaterAtkC extends cc.Component {
             case 65: if (this.mvDrVec.x === -1) this.mvDrVec.x = 0; break; // A
             case 83: if (this.mvDrVec.y === -1) this.mvDrVec.y = 0; break; // S
             case 68: if (this.mvDrVec.x === 1) this.mvDrVec.x = 0; break; // D
-            case 38: if (this.mvDrVec.y === 1) this.atkDrVec.y = 0; break; // ↑
-            case 40: if (this.mvDrVec.y === -1) this.atkDrVec.y = 0; break; // ↓
-            case 37: if (this.mvDrVec.x === -1) this.atkDrVec.x = 0; break; // ←
-            case 39: if (this.mvDrVec.x === 1) this.atkDrVec.x = 0; break; // →
+            case 38: this.atkDrVec.addSelf(cc.v2(0, -1)); break; // ↑
+            case 40: this.atkDrVec.addSelf(cc.v2(0, 1)); break; // ↓
+            case 37: this.atkDrVec.addSelf(cc.v2(1, 0)); break; // ←
+            case 39: this.atkDrVec.addSelf(cc.v2(-1, 0)); break; // →
             case 32: this.inputCode.delete(keyCode); break; // space
             default: break;
         }
@@ -102,23 +108,26 @@ export default class WaterAtkC extends cc.Component {
         if (this.atk) { return };
         this.atk = 1;
         if (this.bulletArray.length <= 0) {
-            let bulletNum = Math.ceil(this.atkBulletWidth / this.atkBulletUnitWidth);
-            // let initPos = this.role.parent.convertToNodeSpaceAR(this.role.position);
+            let bulletNum = Math.ceil(this.atkBulletWidth / this._bulletSpacing) + 1;
             let initPos = this.role.position;
-            // if (this.mvDrVec.x != 0 || this.mvDrVec.y != 0) {
-            //     this.atkDrVec = this.mvDrVec.clone();
-            // }
             let atkDrVec = this.atkDrVec.clone();
-            cc.log(this.atkDrVec);
+            atkDrVec.normalizeSelf();
+            cc.log(atkDrVec.x, '<=>', atkDrVec.y);
+
             for (let i = 0; i < bulletNum; i++) {
                 let bullet = new Bullet();
+                let temp = cc.v2();
                 bullet.priority = i;
-                bullet.mvDrVec = atkDrVec.normalizeSelf();
-                bullet.pos = initPos.addSelf(atkDrVec.normalizeSelf().mulSelf(this.atkBulletUnitWidth)).clone();
+                bullet.mvDrVec = atkDrVec.clone();
+                atkDrVec.normalizeSelf();
+                initPos.add(atkDrVec.multiplyScalar(Math.max(1, i * this._bulletSpacing)), temp);
+                cc.log(temp.x, '<=>', temp.y);
+                bullet.pos = temp.clone();
                 bullet.rolePos = this.role.position.clone();
                 this.bulletArray.push(bullet);
             }
         }
+        // 攻击完毕
         this.scheduleOnce(() => {
             this.atk = 0;
             this.bulletArray = [];
@@ -126,7 +135,7 @@ export default class WaterAtkC extends cc.Component {
         }, 3);
     }
 
-    waterAtk(dt): void {
+    waterAtkBak(dt): void {
         if (this.bulletArray.length > 0) {
             this.drawByBullet(this.bulletArray);
 
@@ -138,7 +147,7 @@ export default class WaterAtkC extends cc.Component {
                 preArr.push(this.bulletArray.pop());
             }
             for (let bullet of preArr) {
-                bullet.pos = initPos.addSelf(bullet.mvDrVec.normalizeSelf().mulSelf(this.atkBulletUnitWidth)).clone();
+                bullet.pos = initPos.addSelf(bullet.mvDrVec.normalizeSelf().mulSelf(this.atkBulletWidth)).clone();
                 bullet.rolePos = this.role.position.clone();
             }
             for (let bullet of this.bulletArray) {
@@ -163,6 +172,47 @@ export default class WaterAtkC extends cc.Component {
         }
     }
 
+    waterAtk(dt): void {
+        if (this.bulletArray.length > 0) {
+            // this.drawByBullet(this.bulletArray);
+            let arr = [];
+
+            let initPos = this.role.position.clone();
+            for (let i = 0; i < this.bulletArray.length; i++) {
+                let bullet: Bullet = this.bulletArray[i];
+                if (i == 0) { bullet.pos = initPos.clone(); continue; }
+                let atkDirect = bullet.mvDrVec.clone();
+                atkDirect.normalizeSelf();
+                // let preBullet = this.bulletArray[i - 1];
+                let temp = cc.v2();
+                initPos.sub(bullet.pos, temp);
+                let dis = temp.mag();
+
+                // let num = -((i / this.bulletArray.length) * (i / this.bulletArray.length) - 1);
+                let num = 1 - i / this.bulletArray.length + 0.1;
+                // let num = 1;
+                // let num = 1 / dis;
+                // let num = 1 / dis * dt * 100;
+                // let num = (i / this.bulletArray.length - 1) * (i / this.bulletArray.length - 1)
+                // bullet.pos.sub(preBullet.pos, temp);
+                // preBullet.pos.add(temp.normalizeSelf().multiplyScalar(this._bulletSpacing), bullet.pos);
+                let expectPos = initPos.add(atkDirect.multiplyScalar(Math.max(1, i * this._bulletSpacing)), temp);
+                expectPos.sub(bullet.pos, temp);
+                let disT = temp.mag();
+                let toExpectPosVec = temp.multiplyScalar(Math.min(num, 1));
+                bullet.pos.addSelf(toExpectPosVec);
+
+                arr.push({ x: bullet.pos.x, y: bullet.pos.y })
+            }
+
+            let comp: CustomRenderer = this.board.getComponent(CustomRenderer);
+            if (comp) {
+                comp.createVertsByArrAndScale(arr, 20);
+                comp.setVertsDirty();
+            }
+        }
+    }
+
     inputSystem(dt): void {
         let v = this.inputCode.values();
         while (true) {
@@ -175,6 +225,18 @@ export default class WaterAtkC extends cc.Component {
     drawByBullet(arr): void {
         this.pannel.clear();
         if (arr.length <= 0) return;
+        this.pannel.lineWidth = 10;
+        this.pannel.strokeColor = cc.Color.BLUE;
+        for (let i = 0; i < arr.length; i++) {
+            let bullet = arr[i];
+            let p = bullet.pos.clone();
+            if (i === 0) {
+                this.pannel.moveTo(p.x, p.y);
+                continue;
+            }
+            this.pannel.lineTo(p.x, p.y);
+        }
+        this.pannel.stroke();
         for (let bullet of arr) {
             this.pannel.lineWidth = 1;
             this.pannel.fillColor = cc.Color.YELLOW;
