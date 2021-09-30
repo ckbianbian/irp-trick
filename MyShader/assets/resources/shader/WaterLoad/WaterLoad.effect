@@ -46,8 +46,6 @@ CCProgram vs %{
     v_uv0.x = v_uv0.x*1.0;
     #endif
 
-    // pos.y = pos.y * sin(cc_time.x);
-
     v_color = a_color;
     a_pos = pos;
     gl_Position = pos;
@@ -105,7 +103,7 @@ CCProgram fs %{
     // vec4 color = v_color;
     // color *= texture(texture, v_uv0);
     vec2 t = v_uv0;
-    t.x = fract(v_uv0.x + abs(sin(cc_time.x)));
+    // t.x = fract(v_uv0.x + abs(sin(cc_time.x)));
     // t.x = fract(t.x + cc_time.x/1.0);
     // t.y = fract(t.y + cc_time.x/10.);
     // t.x = (v_uv0.x-0.5) * cos(cc_time.x) - (v_uv0.y-0.5)*sin(cc_time.x)+0.5;

@@ -2,7 +2,7 @@ import Role from "../model/role/Role";
 import GameController from "./GameController";
 import Hero from "../model/role/Hero";
 import Controller from "./Controller";
-import MathUtiles from "../lib/MathUtiles";
+import MathUtiles from "../lib/MathUtils";
 import Bullet from "../model/bullet/Bullet";
 
 /**

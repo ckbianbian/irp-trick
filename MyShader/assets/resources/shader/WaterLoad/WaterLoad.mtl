@@ -1,6 +1,6 @@
 {
   "__type__": "cc.Material",
-  "_name": "custom_material",
+  "_name": "WaterLoad",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
@@ -11,8 +11,7 @@
     "0": {
       "defines": {
         "USE_TEXTURE": true,
-        "ENABLE_GAUSSIAN_BLUR": true,
-        "USE_ALPHA_TEST": true
+        "USE_ALPHA_TEST": false
       },
       "props": {
         "textureSize": {
@@ -20,7 +19,7 @@
           "x": 200,
           "y": 200
         },
-        "alphaThreshold": 0
+        "alphaThreshold": 1
       }
     }
   }

@@ -1,5 +1,5 @@
 import ActionController from "../../controller/ActionController";
-import MathUtiles from "../../lib/MathUtiles";
+import MathUtiles from "../../lib/MathUtils";
 import LotteryState from "./LotteryState";
 /**
  *  @description 普通状态

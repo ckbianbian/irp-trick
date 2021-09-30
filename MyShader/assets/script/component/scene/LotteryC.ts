@@ -1,6 +1,6 @@
 import ActionController from "../../controller/ActionController";
 import DataUtiles from "../../lib/DataUtiles";
-import MathUtiles from "../../lib/MathUtiles";
+import MathUtiles from "../../lib/MathUtils";
 import ADState from "../../state/lottery_state/ADState";
 import NormalState from "../../state/lottery_state/NormalState";
 import StateBase from "../../state/StateBase";

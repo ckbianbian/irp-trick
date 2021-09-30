@@ -1,5 +1,5 @@
 import ActionController from "../../controller/ActionController";
-import MathUtiles from "../../lib/MathUtiles";
+import MathUtiles from "../../lib/MathUtils";
 import ActivationState from "../../state/lottery_state/ActivationState";
 import ADState from "../../state/lottery_state/ADState";
 import NormalState from "../../state/lottery_state/NormalState";

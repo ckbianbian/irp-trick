@@ -178,7 +178,6 @@
               {
                 "defines": {
                   "USE_TEXTURE": true,
-                  "ENABLE_GAUSSIAN_BLUR": true,
                   "USE_ALPHA_TEST": true
                 }
               },

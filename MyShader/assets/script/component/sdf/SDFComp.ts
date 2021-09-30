@@ -1,4 +1,4 @@
-import MathUtiles from "../../lib/MathUtiles";
+import MathUtiles from "../../lib/MathUtils";
 
 const { ccclass, property } = cc._decorator;
 

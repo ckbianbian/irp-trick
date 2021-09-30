@@ -3,7 +3,7 @@ import Utiles from "./Utiles";
 /**
  *  @description 数学方法工具类
  */
-export default class MathUtiles extends Utiles {
+export default class MathUtils extends Utiles {
 
 
     /** ------------------------------------数学方法-------------------------------------- */
@@ -77,5 +77,32 @@ export default class MathUtiles extends Utiles {
 
         return inside;
     }
-
+    /** 将二维数组分割为四个象限数组 */
+    static divisionArrToFourQuadrantsTree(arr): any[] {
+        let result = [];
+        let limitArr = this.getDivisionLimitIndex(arr);
+        for (let obj of limitArr) {
+            result.push(this.divisionArrToNewArrByLimit(arr, obj));
+        }
+        return result;
+    }
+    static divisionArrToNewArrByLimit(arr, limitObj): any[] {
+        let result = [];
+        for (let row = limitObj.rowMin; row < limitObj.rowMax; row++) {
+            let rowArr = [];
+            for (let column = limitObj.columnMin; column < limitObj.columnMax; column++) {
+                rowArr.push(arr[row][column]);
+            }
+            result.push(rowArr);
+        }
+        return result;
+    }
+    static getDivisionLimitIndex(arr): { columnMin, rowMin, columnMax, rowMax }[] {
+        let rowNum = arr.length, columnNum = arr[0].length;
+        let centerRow = Math.ceil(rowNum / 2), centerColumn = Math.ceil(columnNum / 2);
+        return [{ columnMin: centerColumn, rowMin: centerRow, columnMax: columnNum, rowMax: rowNum },
+        { columnMin: 0, rowMin: centerRow, columnMax: centerColumn, rowMax: rowNum },
+        { columnMin: 0, rowMin: 0, columnMax: centerColumn, rowMax: centerRow },
+        { columnMin: centerColumn, rowMin: 0, columnMax: columnNum, rowMax: centerRow }];
+    }
 }

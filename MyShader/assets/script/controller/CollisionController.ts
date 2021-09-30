@@ -3,7 +3,7 @@
  */
 
 import Controller from "./Controller"
-import MathUtiles from "../lib/MathUtiles";
+import MathUtiles from "../lib/MathUtils";
 
 export default class CollisionController extends Controller {
 

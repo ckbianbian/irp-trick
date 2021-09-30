@@ -1,6 +1,6 @@
 import LotteryItemC from "../../component/prefab/LotteryItemC";
 import ActionController from "../../controller/ActionController";
-import MathUtiles from "../../lib/MathUtiles";
+import MathUtiles from "../../lib/MathUtils";
 import ActivationState from "./ActivationState";
 import LotteryState from "./LotteryState";
 /**
