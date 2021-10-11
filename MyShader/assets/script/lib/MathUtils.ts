@@ -77,6 +77,16 @@ export default class MathUtils extends Utiles {
 
         return inside;
     }
+    static transformTwoDimensionalToOne(arr): any[] {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+            let array = arr[i];
+            for (let k = 0; k < array.length; k++) {
+                result.push(array[k]);
+            }
+        }
+        return result;
+    }
     /** 将二维数组分割为四个象限数组 */
     static divisionArrToFourQuadrantsTree(arr): any[] {
         let result = [];
@@ -104,5 +114,53 @@ export default class MathUtils extends Utiles {
         { columnMin: 0, rowMin: centerRow, columnMax: centerColumn, rowMax: rowNum },
         { columnMin: 0, rowMin: 0, columnMax: centerColumn, rowMax: centerRow },
         { columnMin: centerColumn, rowMin: 0, columnMax: columnNum, rowMax: centerRow }];
+    }
+    // 创造一个从0开始的数组 数组长度自定义
+    static CreateArrIndexByArrLength(num): number[] {
+        let result = [];
+        for (let index = 0; index < num; index++) {
+            result.push(index);
+        }
+        return result;
+    }
+    // 随机打乱数组
+    static Shuffle(arr) {
+        let _arr = arr.slice(); //slice不会影响原来的数组，但是splice就会影响原来的arr数组
+        for (let i = 0; i < _arr.length; i++) {
+            let j = this.Random(0, i);
+            let t = _arr[i];
+            _arr[i] = _arr[j];
+            _arr[j] = t;
+        }
+        return _arr;
+    }
+    static genUUID(len = 16, radix = 16) {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [],
+            i;
+        radix = radix || chars.length;
+
+        if (len) {
+            // Compact form
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+        } else {
+            // rfc4122, version 4 form
+            var r;
+
+            // rfc4122 requires these characters
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+
+            // Fill in random data.  At i==19 set the high bits of clock sequence as
+            // per rfc4122, sec. 4.1.5
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        }
+
+        return uuid.join('');
     }
 }
