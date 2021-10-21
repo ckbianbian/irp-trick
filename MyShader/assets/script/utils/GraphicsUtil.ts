@@ -3,7 +3,6 @@
  */
 
 import Singleton from "../common/Singleton";
-
 export default class GraphicsUtil extends Singleton {
 
     /** 画圆点 */
@@ -27,6 +26,24 @@ export default class GraphicsUtil extends Singleton {
             draw_board.fill();
             draw_board.stroke();
         }
+    }
+
+    /** 画线 */
+    drawLine(posArr: cc.Vec2[], draw_board: cc.Graphics, w = 10, color = cc.Color.YELLOW): void {
+        let startFlag = true;
+        for (const pos of posArr) {
+            let p = pos.clone();
+            if (startFlag) {
+                startFlag = false;
+                draw_board.moveTo(p.x, p.y);
+            } else {
+                draw_board.lineTo(p.x, p.y);
+            }
+        }
+        draw_board.lineJoin = cc.Graphics.LineJoin.ROUND;
+        draw_board.lineWidth = w;
+        draw_board.strokeColor = color;
+        draw_board.stroke();
     }
 
 }

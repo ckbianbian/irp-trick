@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3db9d037-d3c7-43a1-a9b6-8ead819e40b4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "奖励底框-1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3f03a5a6-bead-4092-818d-8dc1ec12ea39",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3db9d037-d3c7-43a1-a9b6-8ead819e40b4",
       "trimType": "auto",
       "trimThreshold": 1,

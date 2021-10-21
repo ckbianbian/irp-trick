@@ -1,9 +1,9 @@
-import Utiles from "./Utiles";
+import Utils from "./Utiles";
 
 /**
  *  @description 数学方法工具类
  */
-export default class MathUtils extends Utiles {
+export default class MathUtils extends Utils {
 
 
     /** ------------------------------------数学方法-------------------------------------- */
@@ -162,5 +162,34 @@ export default class MathUtils extends Utiles {
         }
 
         return uuid.join('');
+    }
+    static RankArray<T>(arr: T[], num = arr.length): T[] {
+        let result = [];
+        let startTime = new Date().getTime();
+        for (let i = 0; i < arr.length; i++) {
+            let otherArr = arr.slice(0, arr.length);
+            let tempArr = otherArr.splice(i, 1);
+            for (let j = 0; j < num; j++) {
+                let temp = [];
+                while (tempArr.length > 0) {
+                    let elm = tempArr.shift();
+                    result.push(elm);
+                    for (let other of otherArr) {
+                        if (elm.indexOf(other) == -1) {
+                            temp.push(elm + "" + other);
+                        }
+                    }
+                }
+                tempArr = temp;
+            }
+        }
+
+        let endTime = new Date().getTime();
+        cc.log(result);
+        cc.log("startTime-----------:", startTime);
+        cc.log("endTime-----------:", endTime);
+        cc.log("耗时-----------:", endTime - startTime);
+
+        return arr;
     }
 }

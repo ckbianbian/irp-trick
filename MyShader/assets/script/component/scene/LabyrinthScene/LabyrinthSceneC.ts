@@ -19,14 +19,17 @@ export default class LabyrinthSceneC extends cc.Component {
     _boardArr = null;
 
 
-    onLoad(): void { }
+    onLoad(): void {
+        let arr = ["a", "b", "c", "d"];
+        MathUtils.RankArray(arr);
+    }
     start(): void {
         this.initCheckerboard();
         this.drawCheckerboard();
         this.renderCheckerboard();
     }
     // 初始化二维数组方块信息
-    initCheckerboard(rowNum = 51, columnNum = 71): void {
+    initCheckerboard(rowNum = 21, columnNum = 31): void {
         if (rowNum % 2 == 0) { rowNum += 1; }
         if (columnNum % 2 == 0) { columnNum += 1; }
         rowNum = Math.max(5, rowNum);
@@ -48,7 +51,7 @@ export default class LabyrinthSceneC extends cc.Component {
         }
     }
     drawCheckerboard(): void {
-        this.drawBigAreaLabyrinth();
+        // this.drawBigAreaLabyrinth();
         // this.drawNormalLabyrinth();
         // this.drawRdPrimeLabyrinth();
     }

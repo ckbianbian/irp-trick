@@ -19,10 +19,10 @@ export default class PhysicsManager extends Singleton {
     openPhysicsSystem(): void {
         this.physicsManager.enabled = true;
         if (CC_DEBUG) {
-            let Bits = cc.PhysicsManager.DrawBits;
-            this.physicsManager.debugDrawFlags = Bits.e_aabbBit |
-                Bits.e_jointBit |
-                Bits.e_shapeBit;
+            // let Bits = cc.PhysicsManager.DrawBits;
+            // this.physicsManager.debugDrawFlags = Bits.e_aabbBit |
+            //     Bits.e_jointBit |
+            //     Bits.e_shapeBit;
         }
     }
     // 关闭物理系统

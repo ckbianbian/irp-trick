@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "16d9a5d9-9a24-49c2-86f7-488c82d2ec61",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "Debris_Clothes": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "525eb4fc-f1c4-4606-b93e-e392d82a6545",
+      "importer": "sprite-frame",
       "rawTextureUuid": "16d9a5d9-9a24-49c2-86f7-488c82d2ec61",
       "trimType": "auto",
       "trimThreshold": 1,

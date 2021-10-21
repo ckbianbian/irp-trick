@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "335e3914-7617-44e5-a2e2-7ff47c5cc8f0",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "金钥匙": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e853fdb5-30c3-4700-8416-d19821faa450",
+      "importer": "sprite-frame",
       "rawTextureUuid": "335e3914-7617-44e5-a2e2-7ff47c5cc8f0",
       "trimType": "auto",
       "trimThreshold": 1,

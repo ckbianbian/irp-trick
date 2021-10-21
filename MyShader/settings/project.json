@@ -1,40 +1,31 @@
 {
-  "last-module-event-record-time": 1611657457783,
-  "migrate-history": [
-    "cloud-function"
-  ],
-  "group-list": [
-    "bottom",
-    "middle",
-    "top",
-    "final"
-  ],
   "collision-matrix": [
     [
-      false
+      true
     ],
     [
       false,
       false
     ],
     [
-      false,
-      false,
-      false
-    ],
-    [
-      false,
       false,
       false,
       false
     ]
   ],
   "excluded-modules": [
-    "3D Physics/Builtin"
+    "3D Physics/cannon.js",
+    "3D Physics/Builtin",
+    "3D Particle",
+    "SafeArea"
   ],
-  "preview-port": 7456,
-  "design-resolution-width": 960,
-  "design-resolution-height": 640,
+  "group-list": [
+    "default",
+    "mirror_camera",
+    "moving_ghost"
+  ],
+  "design-resolution-width": 1334,
+  "design-resolution-height": 750,
   "fit-width": false,
   "fit-height": true,
   "use-project-simulator-setting": false,
@@ -44,7 +35,8 @@
     "height": 640,
     "width": 960
   },
-  "clear-simulator-cache": true,
+  "last-module-event-record-time": 1591504473893,
+  "assets-sort-type": "name",
   "facebook": {
     "appID": "",
     "audience": {
@@ -54,5 +46,9 @@
     "live": {
       "enable": false
     }
-  }
+  },
+  "start-scene": "current",
+  "migrate-history": [
+    "cloud-function"
+  ]
 }
