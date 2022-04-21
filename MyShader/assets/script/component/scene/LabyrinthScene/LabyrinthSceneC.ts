@@ -51,17 +51,20 @@ export default class LabyrinthSceneC extends cc.Component {
         }
     }
     drawCheckerboard(): void {
-        // this.drawBigAreaLabyrinth();
+        this.drawBigAreaLabyrinth();
         // this.drawNormalLabyrinth();
         // this.drawRdPrimeLabyrinth();
     }
+    // 大区域迷宫（有大区块生成）
     drawBigAreaLabyrinth(): void {
         this.genBigLabyrinth();
     }
+    // 普通迷宫（主路长）
     drawNormalLabyrinth(): void {
         let startBlock = this.getStartBlock();
         this.calculateMap(startBlock);
     }
+    // 随机迷宫（岔路多）
     drawRdPrimeLabyrinth(): void {
         let startBlock = this.getStartBlock();
         this.calculateMapPrimeRd(startBlock, []);

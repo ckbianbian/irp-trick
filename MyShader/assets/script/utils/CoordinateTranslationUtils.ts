@@ -22,4 +22,13 @@ export default class CoordinateTranslationUtils extends BaseUtils {
         newPoint.y = radio * Math.sin(radian) + point.y;
         return newPoint;
     }
+
+    static convertToCoordPos(node: cc.Node, coord?: cc.Node): cc.Vec2 {
+        let result = cc.Vec2.ZERO
+        result = node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+        if (coord) {
+            result = coord.convertToNodeSpaceAR(result);
+        }
+        return result
+    }
 }

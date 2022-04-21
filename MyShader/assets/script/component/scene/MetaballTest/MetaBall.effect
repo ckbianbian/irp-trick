@@ -103,12 +103,12 @@ CCProgram fs %{
     // arr[1] = vec2(0.5,0.5);
     // arr[2] = vec2(0.55,0.5);
     // float o3 = countPotentialEnergyBk(v_uv0, arr,0.01);
-    float energy = countPotentialEnergy(v_uv0, light_prop,0.01);
+    float energy = countPotentialEnergy(v_uv0, light_prop,0.03);
     float o4 = step(.1, energy);
     // // float o5 = step(.0027165, o3);
     // float o5 = step(.002, o3);
 
-    color.a = o4;
+    color.a = energy;
 
     gl_FragColor = color;
   }

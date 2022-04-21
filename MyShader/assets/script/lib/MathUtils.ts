@@ -5,6 +5,19 @@ import Utils from "./Utiles";
  */
 export default class MathUtils extends Utils {
 
+    static attenuation_constant = {
+        one: { constant: 1.0, linear: 0.7, quadratic: 1.8 },
+        two: { constant: 1.0, linear: 0.35, quadratic: 0.44 },
+        three: { constant: 1.0, linear: 0.22, quadratic: 0.20 },
+        four: { constant: 1.0, linear: 0.09, quadratic: 0.032 },
+        five: { constant: 1.0, linear: 0.07, quadratic: 0.017 },
+        six: { constant: 1.0, linear: 0.045, quadratic: 0.0075 },
+        seven: { constant: 1.0, linear: 0.027, quadratic: 0.0028 },
+        eight: { constant: 1.0, linear: 0.022, quadratic: 0.0019 },
+        nine: { constant: 1.0, linear: 0.014, quadratic: 0.0007 },
+        ten: { constant: 1.0, linear: 0.007, quadratic: 0.0002 },
+        zero: { constant: 1.0, linear: 0.0014, quadratic: 0.000007 },
+    }
 
     /** ------------------------------------数学方法-------------------------------------- */
 
@@ -192,4 +205,64 @@ export default class MathUtils extends Utils {
 
         return arr;
     }
+    // ax^2+bx+c = 0;
+    static CalculateUnivariateQuadraticEquation(a, b, c): any[] {
+        let delta = b * b - 4 * a * c;
+        let result = [];
+        let x1, x2;
+        if (delta > 0) {
+            x1 = -b / (2 * a) + Math.sqrt(delta) / (2 * a);
+            x2 = -b / (2 * a) - Math.sqrt(delta) / (2 * a);
+            result.push(x1);
+            result.push(x2);
+        } else if (delta == 0) {
+            x1 = -b / (2 * a);
+            result.push(x1);
+        } else {
+            cc.log("方程没有实根!");
+        }
+        return result;
+    }
+    // 获取碰撞时间
+    static GetMotionObjBeAttackedTime(a, b, c): number[] {
+        let result = [];
+        let resultArr = this.CalculateUnivariateQuadraticEquation(a, b, c);
+        for (let i = 0; i < resultArr.length; i++) {
+            if (resultArr[i] >= 0) {
+                result.push(resultArr[i]);
+            }
+        }
+        return result;
+    }
+    // 通过固定发射点和发射速度，移动物体的点和移动物体移动速度方向获取碰撞拦截点
+    static GetCollisionPointByTwoPointAndSpeed(firePos: cc.Vec2, speed: number, targetPos: cc.Vec2, targetObjSpeedVec: cc.Vec2): any {
+        let result;
+
+        let a = speed * speed - (targetObjSpeedVec.x * targetObjSpeedVec.x) - (targetObjSpeedVec.y * targetObjSpeedVec.y);
+        let b = -1 * (2 * targetObjSpeedVec.x * (targetPos.x - firePos.x)) - 1 * (2 * targetObjSpeedVec.y * (targetPos.y - firePos.y));
+        let c = -(targetPos.x - firePos.x) * (targetPos.x - firePos.x) - (targetPos.y - firePos.y) * (targetPos.y - firePos.y);
+
+        // cc.log("a=", a, "b=", b, "c=", c);
+        let timeArr = this.GetMotionObjBeAttackedTime(a, b, c);
+        if (timeArr.length <= 0) {
+            return false;
+        }
+
+        let time = timeArr[0];
+        cc.log("相遇时间", time);
+        let collisionPos = cc.v2(0, 0);
+        targetPos.add(targetObjSpeedVec.clone().multiplyScalar(time), collisionPos);
+        result = collisionPos.clone();
+
+        return result;
+    }
+    // 根据距离的光线强度衰减公式
+    static DisAttenuation(distance: number, obj: { constant, linear, quadratic } = MathUtils.attenuation_constant.one): number {
+        let result = 1.0 / (obj.constant + obj.linear * distance + obj.quadratic * (distance * distance));
+        return result;
+    }
+    static FormatNumber(num: number, retain = 100) {
+        return (Math.round(num * retain)) / retain;
+    }
+
 }
