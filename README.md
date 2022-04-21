@@ -5,9 +5,11 @@ Study some interesting shader.
  3. 旗帜飘动：WaveFlag（场景名称）
  4. 水波飘动加载：WaterFlag（场景名称）
  5. 三种动态迷宫生成方案：（待完成）
- 6. 硫磺火（水柱）攻击：（完成80%）
+ 6. 硫磺火（水柱）攻击：（完成）
  7. 颜色包围占色：（完成80%）
  8. 搓牌特效：（完成80%）
  9. 物品被选中效果：WeaponHignLight（目前没有将参数抽出来，锯齿和精准度还有些问题）
  10. 物品描边效果：StrokeOutline（有优化的空间，模糊选中边界和原图边界的对比度）
  11. 迷宫生成：LabyrinthScene 
+ 12. 贪吃蛇 控制：SnakeMove
+ 13. 硫磺火：WaterFlow
