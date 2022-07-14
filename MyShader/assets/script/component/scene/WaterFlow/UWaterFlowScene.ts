@@ -1,6 +1,6 @@
+import { USceneComponent } from "../../../common/core/USceneComponent";
 import MathUtils from "../../../lib/MathUtils";
 import CoordinateTranslationUtils from "../../../utils/CoordinateTranslationUtils";
-import { USceneComponent } from "../../USceneComponent";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -10,8 +10,6 @@ export class UWaterFlowScene extends USceneComponent {
 
     @property({ displayName: "水流节点预制体", type: cc.Prefab })
     public nodePrefab: cc.Prefab = null;
-    @property({ displayName: "根节点", type: cc.Node })
-    public rootNode: cc.Node = null;
 
     private bIsTouch = false;
     private touchPos = null;
@@ -33,14 +31,23 @@ export class UWaterFlowScene extends USceneComponent {
     initTouchManager(): void {
         this.rootNode.on(cc.Node.EventType.TOUCH_START, (inTouch: cc.Event.EventTouch) => {
             this.waterFlowCtrl.initWaterFlow(inTouch, this.nodePrefab, this.rootNode,
-                [cc.v2(1, 0),
-                cc.v2(-1, 0),
-                cc.v2(0, 1),
-                cc.v2(0, -1),
-                    // cc.v2(1, -1),
-                    // cc.v2(-1, -1),
-                    // cc.v2(-1, 1),
-                    // cc.v2(1, 1)
+                [
+                    cc.v2(1, 0),
+                    cc.v2(-1, 0),
+                    cc.v2(0, 1),
+                    // cc.v2(0.3, 1),
+                    // cc.v2(-0.3, 1),
+                    // cc.v2(0.8, 1),
+                    // cc.v2(-0.8, 1),
+                    // cc.v2(1.2, 1),
+                    // cc.v2(-1.2, 1),
+                    // cc.v2(1, 0.3),
+                    // cc.v2(-1, 0.3),
+                    cc.v2(0, -1),
+                    cc.v2(1, -1),
+                    cc.v2(-1, -1),
+                    cc.v2(-1, 1),
+                    cc.v2(1, 1)
                 ]);
             this.touchPos = inTouch.getLocation();
             this.bIsTouch = true;

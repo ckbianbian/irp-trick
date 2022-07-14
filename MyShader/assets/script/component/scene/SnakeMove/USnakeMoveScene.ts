@@ -1,5 +1,5 @@
+import { USceneComponent } from "../../../common/core/USceneComponent";
 import CoordinateTranslationUtils from "../../../utils/CoordinateTranslationUtils";
-import { USceneComponent } from "../../USceneComponent";
 
 const { ccclass, property, menu } = cc._decorator;
 
@@ -9,11 +9,9 @@ export class USnakeMoveScene extends USceneComponent {
 
     @property({ displayName: "蛇节点", type: cc.Prefab })
     public snakeNode: cc.Prefab = null;
-    @property({ displayName: "根节点", type: cc.Node })
-    public rootNode: cc.Node = null;
 
     private _snakeCtrl: SnakeCtrl;
-    private num = 3;
+    private num = 20;
     private bIsTouch = false;
     private touchPos = null;
 

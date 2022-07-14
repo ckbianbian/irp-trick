@@ -1,4 +1,4 @@
-import { UActorComponent } from "../../UActorComponent";
+import { UActorComponent } from "../../../common/core/UActorComponent";
 
 export class WaterFlowActorComp extends UActorComponent {
 

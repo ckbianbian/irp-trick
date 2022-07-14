@@ -17,8 +17,8 @@
       "props": {
         "magnifierCenterPoint": {
           "__type__": "cc.Vec2",
-          "x": 0.5,
-          "y": 0.5
+          "x": 0,
+          "y": 0
         },
         "nodeTextureProportion": 0.7,
         "magnifierRadius": 0.3,

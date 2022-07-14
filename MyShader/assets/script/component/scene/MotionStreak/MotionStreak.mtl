@@ -1,0 +1,18 @@
+{
+  "__type__": "cc.Material",
+  "_name": "MotionStreak",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "fe6a5847-52ab-418a-9ed8-64fc14af8ced"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": false,
+        "USE_THUNDER": true
+      }
+    }
+  }
+}
