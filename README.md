@@ -13,4 +13,4 @@ Study some interesting shader.
  11. 迷宫生成：LabyrinthScene 
  12. 贪吃蛇 控制：SnakeMove
  13. 硫磺火：WaterFlow
- 14. 闪电拖尾：MotionSteak
+ 14. 闪电拖尾：MotionStreak
