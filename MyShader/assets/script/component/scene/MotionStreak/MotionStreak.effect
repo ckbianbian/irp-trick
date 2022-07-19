@@ -61,7 +61,7 @@ CCProgram fs %{
   in vec4 v_color;
 
   uniform ENEGER_INFO{
-    vec4 light_prop[256];
+    vec4 light_prop[64];
   };
 
   #if USE_TEXTURE
@@ -84,7 +84,7 @@ float randCustom (in float st) {
 }
 
 float customPowerEnergy2(in vec2 enegerInfo){
-    float e = 0.05 
+    float e = 0.1
     * (1.-enegerInfo.y)
     ;
     float result = e / enegerInfo.x;
@@ -92,14 +92,14 @@ float customPowerEnergy2(in vec2 enegerInfo){
     return result;
 }
 
-vec2 countDisByPointAndPointArr(in vec2 st, in vec4 pointArr[256]){
+vec2 countDisByPointAndPointArr(in vec2 st, in vec4 pointArr[64]){
     float dis = 100000.;
     float aLen = 0.;
     float tRatio = 1.;
-    for(int i = 0; i < 10;i++){
+    for(int i = 0; i < 20;i++){
         float scale = 10.;
         vec2 st2 = st * scale;
-    	vec4 p1 = pointArr[i];
+    	  vec4 p1 = pointArr[i];
         vec4 p2 = pointArr[i+1];
         vec2 pointOne = vec2(p1.x, p1.y)*scale;
         vec2 pointTwo = vec2(p2.x, p2.y)*scale;
@@ -108,7 +108,7 @@ vec2 countDisByPointAndPointArr(in vec2 st, in vec4 pointArr[256]){
         vec2 cVec = pointOne - st2;
         
         float test = dot(bVec, aVec)/length(aVec); // a向量在b向量上的长度
-    	vec3 t2 = cross(vec3(bVec, 0.), vec3(aVec, 0.));
+    	  vec3 t2 = cross(vec3(bVec, 0.), vec3(aVec, 0.));
         	 
         if(test < .0 || test > length(aVec)){
             // dis = min(dis, distance(st2, pointOne));
@@ -129,7 +129,7 @@ vec2 countDisByPointAndPointArr(in vec2 st, in vec4 pointArr[256]){
             vec2 inPoint = pointOne + normalize(aVec) * test;
             float iL = floor(test);
             float fL = fract(test);
-            float amplitude = 3.0;
+            float amplitude = 10.0;
             float h = randCustom(iL) 
             * (randCustom(floor(cc_time.x*fre+aLen)) * amplitude - amplitude / 2.)
             ;
@@ -161,15 +161,7 @@ vec2 countDisByPointAndPointArr(in vec2 st, in vec4 pointArr[256]){
 }
 
   void main () {
-    vec4 pArr[256];
-    pArr[0] = vec4(0.2);
-    pArr[1] = vec4(0.2, 0.8, 0., 0.);
-    // pArr[2] = vec4(0.8, 0.8, 0., 0.);
-    pArr[2] = vec4(0.8, 0.2, 0., 0.);
-    pArr[3] = vec4(0.2);
-    pArr[4] = vec4(0.2);
-    
-    vec3 color2 = vec3(0.98, 0.98, 0.85);
+    vec3 color2 = vec3(0., 0.0, 1.);
     vec3 color = vec3(1.);
     vec2 st = v_uv0;
     float a2 = 0.;

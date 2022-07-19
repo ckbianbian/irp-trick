@@ -16,9 +16,9 @@ export default class MotionSteakC extends USceneComponent {
     _len = 10;
     _lenThreshold = 10;
     _maxNum = 64;
-    _maxLen = 2000; // maxLen / unitLen < 64
-    _unitLen = 200;
-    _hideTime = 200; // 用来 之后 控制闪电的粗细透明度 以及消失 时间戳 毫秒单位
+    _maxLen = 3000; // maxLen / unitLen < 64
+    _unitLen = 150;
+    _hideTime = 300; // 用来 之后 控制闪电的粗细透明度 以及消失 时间戳 毫秒单位
     _openTrigger = false;
 
 
@@ -29,8 +29,6 @@ export default class MotionSteakC extends USceneComponent {
     start() {
         this.rootNode.on(cc.Node.EventType.TOUCH_START, (event: cc.Touch) => {
             let pos = event.getLocation();
-            cc.log(pos.x, "--", pos.y);
-            cc.log(cc.view.getVisibleSize().width);
             // this.addTouchPoint(cc.v2(pos.x / cc.view.getVisibleSize().width, 1 - pos.y / cc.view.getVisibleSize().height));
             this.addTouchPoint(pos);
         });
@@ -93,7 +91,6 @@ export default class MotionSteakC extends USceneComponent {
             let info = this._infoArr[i];
             if (info.z + this._hideTime < new Date().getTime() || num == 0) {
                 this._infoArr.splice(i);
-                cc.log(this._infoArr.length);
                 break;
             }
             let dis = cc.Vec2.distance(cc.v2(temp.x, temp.y), cc.v2(info.x, info.y));

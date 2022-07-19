@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.Material",
+  "_name": "BlendTwoTexture",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "23328a3e-224d-42d0-9558-53078f94e213"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true,
+        "USE_ALPHA_TEST": false
+      },
+      "props": {
+        "texture": {
+          "__uuid__": "4892ee83-dff8-45fc-bbaa-58857dda1e2a"
+        }
+      }
+    }
+  }
+}
