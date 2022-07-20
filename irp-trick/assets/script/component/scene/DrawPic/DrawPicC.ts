@@ -33,6 +33,12 @@ export default class MotionSteakC extends USceneComponent {
     /* ---------------------------------- 生命周期方法 ---------------------------------- */
 
     protected onLoad(): void {
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+        cc.view.enableAutoFullScreen(false);
+        // let screen = new cc.screen();
+        // screen.requestFullScreen();
+        // cc.screen['requestFullScreen'](); 
+        // cc.screen['exitFullScreen']();
         this.initCamera();
     }
     protected start(): void {
@@ -48,7 +54,7 @@ export default class MotionSteakC extends USceneComponent {
             let pos = event.getLocation();
             let nPos = this.node.convertToNodeSpaceAR(pos);
             this.brushNode.setPosition(nPos);
-            this.blendTexture();
+            // this.blendTexture();
         });
         this.rootNode.on(cc.Node.EventType.TOUCH_CANCEL, (event: cc.Touch) => {
         });
@@ -59,14 +65,19 @@ export default class MotionSteakC extends USceneComponent {
     public initCamera(): void {
         this._fTexture = new cc.RenderTexture();
         this._fTexture.initWithSize(cc.visibleRect.width, cc.visibleRect.height);
-
-        this._mTexture = new cc.RenderTexture();
-        this._mTexture.initWithSize(cc.visibleRect.width, cc.visibleRect.height);
-        let spriteFrame = new cc.SpriteFrame();
-        spriteFrame.setTexture(this._mTexture);
-        this.drawBoard.spriteFrame = spriteFrame;
-        this.bCamera.targetTexture = this._mTexture;
+        let sf = new cc.SpriteFrame();
+        sf.setTexture(this._fTexture);
+        sf.setFlipY(true);
+        this.mask.spriteFrame = sf;
+        this.drawBoard.spriteFrame = sf;
         this.fCamera.targetTexture = this._fTexture; // 将相机拍摄的内容映射到纹理上
+
+        // this._mTexture = new cc.RenderTexture();
+        // this._mTexture.initWithSize(cc.visibleRect.width, cc.visibleRect.height);
+        // let spriteFrame = new cc.SpriteFrame();
+        // spriteFrame.setTexture(this._mTexture);
+        // this.drawBoard.spriteFrame = spriteFrame;
+        // this.bCamera.targetTexture = this._mTexture;
     }
 
     public blendTexture(): void {
