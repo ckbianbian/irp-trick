@@ -9,4 +9,7 @@ export class USceneComponent extends UActorComponent {
     @property({ displayName: "根节点", type: cc.Node })
     protected rootNode: cc.Node = null;
 
+    constructor() {
+        super();
+    }
 }

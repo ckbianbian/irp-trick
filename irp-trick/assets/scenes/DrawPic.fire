@@ -894,10 +894,10 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_srcBlendFactor": 771,
-    "_dstBlendFactor": 773,
+    "_srcBlendFactor": 768,
+    "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9ffa8694-6879-4f27-9675-de6d01493cf1"
+      "__uuid__": "5e306bf9-9ea5-47d3-9ef3-0981253c410f"
     },
     "_type": 0,
     "_sizeMode": 0,

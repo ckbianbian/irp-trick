@@ -4,7 +4,7 @@ const { ccclass, property, menu } = cc._decorator;
 
 @ccclass
 @menu("自定义组件/场景脚本/画画场景")
-export default class MotionSteakC extends USceneComponent {
+export default class DrawPicC extends USceneComponent {
 
     /* ---------------------------------- 全局属性 ---------------------------------- */
 

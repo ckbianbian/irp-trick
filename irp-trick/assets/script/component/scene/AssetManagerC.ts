@@ -54,7 +54,7 @@ export default class AssetManager extends SceneC {
         return this.deploySp();
     }
     async deploySp() {
-        let res = await this.GetAsync(this._url);
+        let res = await this.GetAsync(this._url) as cc.SpriteFrame;
         this.sprite.spriteFrame = res;
         var promise = new Promise(resolve => {
             this.scheduleOnce(() => {

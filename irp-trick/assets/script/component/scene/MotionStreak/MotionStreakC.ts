@@ -16,9 +16,9 @@ export default class MotionSteakC extends USceneComponent {
     _len = 10;
     _lenThreshold = 10;
     _maxNum = 64;
-    _maxLen = 3000; // maxLen / unitLen < 64
+    _maxLen = 30000; // maxLen / unitLen < 64
     _unitLen = 150;
-    _hideTime = 300; // 用来 之后 控制闪电的粗细透明度 以及消失 时间戳 毫秒单位
+    _hideTime = 500; // 用来 之后 控制闪电的粗细透明度 以及消失 时间戳 毫秒单位
     _openTrigger = false;
 
 

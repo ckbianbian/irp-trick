@@ -1,0 +1,97 @@
+// Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.  
+
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs
+      frag: fs
+      blendState:
+        targets:
+        - blend: true
+      rasterizerState:
+        cullMode: none
+      properties:
+        texture: { value: white }
+        alphaThreshold: { value: 1.0 }
+        oceanOffsetY: {
+          value: 0.5,
+          editor: {
+            tooltip: "水面位置" 
+          }
+        }
+}%
+
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+  #include <cc-local>
+
+  in vec3 a_position;
+  in vec4 a_color;
+  out vec4 v_color;
+  out vec4 a_pos;
+
+  #if USE_TEXTURE
+  in vec2 a_uv0;
+  out vec2 v_uv0;
+  #endif
+
+  void main () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if CC_USE_MODEL
+    pos = cc_matViewProj * cc_matWorld * pos;
+    #else
+    pos = cc_matViewProj * pos;
+    #endif
+
+    #if USE_TEXTURE
+    v_uv0 = a_uv0;
+    v_uv0.x = v_uv0.x*1.0;
+    #endif
+
+    v_color = a_color;
+    a_pos = pos;
+    gl_Position = pos;
+  }
+}%
+
+
+CCProgram fs %{
+  precision highp float;
+  
+  #include <cc-global>
+  #include <alpha-test>
+  #include <texture>
+
+  in vec4 v_color;
+  in vec4 a_pos;
+
+  #if USE_TEXTURE
+  in vec2 v_uv0;
+  uniform sampler2D texture;
+  #endif
+  uniform OceanEffect {
+    float oceanOffsetY;
+  };
+
+  void main () {
+    vec4 o = vec4(1,1,1,1);
+    vec2 t = v_uv0;
+    float a = 1.0-oceanOffsetY;
+    if(t.y > a){
+      t.y =  t.y + sin(abs(cos(cc_time.x))*t.x*20.0-cc_time.x*10.0)*0.01;
+    }
+    o = texture(texture, t);
+
+    if(v_uv0.y > a) {
+        o.r = o.r+0.0;
+        o.b = o.b+1.0;
+        o.g = o.g+1.0;
+    }
+    ALPHA_TEST(o);
+    gl_FragColor = o;
+  }
+}%
